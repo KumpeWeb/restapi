@@ -1,3 +1,3 @@
 # RestAPI
 - [Swagger Editor](https://api.kumpeapps.com/editor)
-- [KKids](https://api.kumpeapps.com/kkids)
+- [KKids API](https://api.kumpeapps.com/kkids)
