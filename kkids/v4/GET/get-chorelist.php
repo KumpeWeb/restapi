@@ -1,4 +1,5 @@
 <?php
+include_once("/var/www/html/kumpeapps.com/api/kkids/DayOfWeekSwitch.php");
 
 if($allowGet){
 	// Set Status to 202 (Accepted)
@@ -132,6 +133,7 @@ if($allowGet){
 			 		'id' => intval($idChoreList),
 			 		'kid' => $kid,
 					'day' => $day,
+					'dayAsInt' => $dayAsInt($day),
 			 		'choreName' => $choreName,
 					'choreDescription' => $choreDescription,
 					'choreNumber' => intval($choreNumber),
@@ -201,6 +203,7 @@ if($allowGet){
 			 		'id' => intval($idChoreList),
 			 		'kid' => $kid,
 					'day' => $day,
+					'dayAsInt' => $dayAsInt($day),
 			 		'choreName' => $choreName,
 					'choreDescription' => $choreDescription,
 					'choreNumber' => intval($choreNumber),
