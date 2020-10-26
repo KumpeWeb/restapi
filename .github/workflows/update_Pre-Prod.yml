@@ -16,5 +16,6 @@ jobs:
       run: |
         cd /var/www/html/kumpeapps.com/api
         whoami
+        git remote -v
         git fetch
         git pull
