@@ -15,5 +15,6 @@ jobs:
     - name: Fetch Pre-Prod
       run: |
         cd /var/www/html/kumpeapps.com/api
+        whoami
         git fetch
         git pull
