@@ -1,0 +1,17 @@
+name: run_updateRepo
+
+on:
+  push:
+    push:
+    branches: [ "Pre-Prod" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: pullGitHub
+      run: |
+        curl https://preprod.kumpeapps.com/api/pullGitHub.php
