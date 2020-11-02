@@ -2,15 +2,25 @@
 /*
 Simple iOS push notification with auth key
 */
-	require_once('inc_jwt_helper.php');
-
-	$Title = $_POST['title'];
-	$Body = $_POST['body'];
-	$Badge = (is_numeric($_POST['badge']) ? (int)$_POST['badge'] : NULL);
-	$Sound = $_POST['sound'];
-	$Token = $_POST['token'];
-	$AppID = $_POST['AppID'];
+	use \Firebase\JWT\JWT;
 	
+function send_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Action) {
+	$Badge = (is_numeric($Badge) ? (int)$Badge : NULL);
+	$action = $Action;
+	
+	
+	
+	$includeAlert = true;
+	$includeBadge = true;
+	
+	if(ISSET($_REQUEST['isBackgroundNotification'])){
+		$isBackgroundNotification = true;
+	}
+	
+	if(ISSET($_REQUEST['isSandbox'])){
+		$isSandbox = true;
+	}
+		
 	$authKey = "AuthKey_KXTY95CN6R.p8";
   	$arParam['teamId'] = '2T42Z3DM34';// Get it from Apple Developer's page
  	$arParam['authKeyId'] = 'KXTY95CN6R';
@@ -19,38 +29,43 @@ Simple iOS push notification with auth key
 	$arParam['p_key'] = file_get_contents($authKey);
 	$arParam['header_jwt'] = JWT::encode($arClaim, $arParam['p_key'], $arParam['authKeyId'], 'RS256');
 	$arSendData = array();
+	$arSendData['aps']['action'] = sprintf($action);
 
-	if($includeAlert){
+	if(isset($_REQUEST['title'])){
 		$arSendData['aps']['alert']['title'] = sprintf($Title); // Notification title
 		$arSendData['aps']['alert']['body'] = sprintf($Body); // body text
-		$arSendData['aps']['sound'] = sprintf($Sound); // sound
 	}
 	
-	if($includeBadge){
+		$arSendData['aps']['sound'] = sprintf($Sound); // sound
+	if(isset($_REQUEST['badge'])){
 		$arSendData['aps']['badge'] = $Badge; // badge #
 	}
 	
 	if($isBackgroundNotification){
 		$arSendData['aps']['content-available'] = 1;
 	}
+	
+	if(ISSET($_REQUEST['category'])){
+		$arSendData['aps']['category'] = sprintf($_REQUEST['category']);
+	}
 
 	// Sending a request to APNS
-	$stat = push_to_apns($arParam, $ar_msg, $arSendData);
+	$stat = push_to_apns($arParam, $ar_msg, $arSendData, $Token);
 	if($stat == FALSE){
     // err handling
 		exit();
 	}
 
 	exit();
-
+}
 // ***********************************************************************************
-function push_to_apns($arParam, &$ar_msg, $arSendData){
+function push_to_apns($arParam, &$ar_msg, $arSendData, $Token, $isSandbox){
 
 	
 
 	$sendDataJson = json_encode($arSendData);
   
-	$endPoint = 'https://api.push.apple.com/3/device'; // https://api.push.apple.com/3/device
+	$endPoint = 'https://api.push.apple.com/3/device'; // https://api.[sandbox.]push.apple.com/3/device
 
 	//　Preparing request header for APNS
 	$ar_request_head[] = sprintf("content-type: application/json");
