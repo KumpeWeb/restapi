@@ -136,11 +136,11 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token, $isSandbox){
   */
   curl_close($ch);
   
-  if(intval($httpcode) == 410){ 
-  	echo("Invalid Token");
+  	if(intval($httpcode) == 410){ 
+  		echo("Invalid Token");
   
-	return TRUE;
+		return TRUE;
+	}
 }
 
 ?>
-
