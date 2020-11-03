@@ -47,10 +47,14 @@ function build_push_to_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Acti
 
 	if(ISSET($_REQUEST['isBackgroundNotification'])){
 		$isBackgroundNotification = true;
+	}else{
+		$isBackgroundNotification = false;
 	}
 	
 	if(ISSET($_REQUEST['isSandbox'])){
 		$isSandbox = true;
+	}else{
+		$isSandbox = false;
 	}
 		
 	$authKey = "/var/www/html/kumpeapps.com/api/apns/AuthKey_KXTY95CN6R.p8";
