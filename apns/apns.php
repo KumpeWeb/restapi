@@ -91,10 +91,10 @@ function build_push_to_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Acti
 	$stat = push_to_apns($arParam, $ar_msg, $arSendData, $Token);
 	if($stat == FALSE){
     // err handling
-		exit();
+		//exit();
 	}
 
-	exit();
+	//exit();
 }
 // ***********************************************************************************
 function push_to_apns($arParam, &$ar_msg, $arSendData, $Token){
