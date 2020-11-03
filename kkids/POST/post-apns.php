@@ -19,6 +19,7 @@ if($allowPost){
 	
 	if($tool == 'register'){
 		register_apns($token,$appName,$userID,$deviceName,$masterID);
+		echo "register";
 	}
 	
 	$json = array("status" => 1, "message" => "POST Successful");
