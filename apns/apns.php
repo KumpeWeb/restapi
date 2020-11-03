@@ -61,13 +61,13 @@ function build_push_to_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Acti
 	$arSendData = array();
 	$arSendData['aps']['action'] = sprintf($action);
 
-	if($Title != "" || $Title != NULL){
+	if($Title != "" && $Title != NULL){
 		$arSendData['aps']['alert']['title'] = sprintf($Title); // Notification title
 		$arSendData['aps']['alert']['body'] = sprintf($Body); // body text
 	}
 	
 		$arSendData['aps']['sound'] = sprintf($Sound); // sound
-	if($Badge != "" || $Badge != NULL){
+	if($Badge != NULL){
 		$arSendData['aps']['badge'] = $Badge; // badge #
 	}
 	
