@@ -11,6 +11,7 @@ function register_apns($token,$appName,$userID,$deviceName,$masterID){
 			ON DUPLICATE KEY UPDATE userID='$userID', deviceName='$deviceName', masterID='$masterID', lastUpdated=now(), markForDeletion=0
 	";
 	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+	echo $query;
 }
 
 function subscribe_apns($appName,$userID,$masterID,$sectionName){
