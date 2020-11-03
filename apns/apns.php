@@ -50,12 +50,6 @@ function build_push_to_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Acti
 	}else{
 		$isBackgroundNotification = false;
 	}
-	
-	if(ISSET($_REQUEST['isSandbox'])){
-		$isSandbox = true;
-	}else{
-		$isSandbox = false;
-	}
 		
 	$authKey = "/var/www/html/kumpeapps.com/api/apns/AuthKey_KXTY95CN6R.p8";
   	$arParam['teamId'] = '2T42Z3DM34';// Get it from Apple Developer's page
@@ -103,9 +97,6 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token){
   
 	$endPoint = 'https://api.sandbox.push.apple.com/3/device'; // https://api.[sandbox.]push.apple.com/3/device
 	
-	if($isSandbox){
-		$endPoint = "https://api.sandbox.push.apple.com/3/device";
-	}
 
 	//　Preparing request header for APNS
 	$ar_request_head[] = sprintf("content-type: application/json");

@@ -20,7 +20,7 @@ if($allowPost){
 	$Body = (isset($_REQUEST['body']) ? $_REQUEST['body'] : NULL);
 	$Badge = (isset($_REQUEST['badge']) ? (int)$_REQUEST['badge'] : NULL);
 	$Sound = (isset($_REQUEST['sound']) ? $_REQUEST['sound'] : "");
-	$appName = 'com.kumpeapps.ios.kkid';
+	$appName = 'com.kumpeapps.ios.KKid';
 	$Action = (isset($_REQUEST['action']) ? $_REQUEST['action'] : NULL);
 	$Section = (isset($_REQUEST['section']) ? $_REQUEST['section'] : NULL);
 	
