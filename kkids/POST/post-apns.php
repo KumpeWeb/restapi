@@ -52,6 +52,7 @@ if($allowPost){
 				AND appName = '$appName'
     			AND sectionName = '$Section' $useridquery $masteridquery;
 		";  
+		echo $UserData;
 		$UserQuery = mysqli_query($conn, $UserData) or die("Couldn't execute query. ". mysqli_error($conn)); 
 		$Users = array();
 
