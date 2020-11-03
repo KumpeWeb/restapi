@@ -1,6 +1,6 @@
 <?php
 
-include_once('/var/www/html/kumpeapps.com/apns/apns.php');
+include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 
 if($allowPost){
 	// Set Status to 202 (Accepted)
