@@ -25,7 +25,7 @@ if($allowPost){
 	$Section = $_REQUEST['section'];
 	
 	if($tool == 'register' && $isSuperuser){
-		register_apns($token,$appName,$userID,$deviceName,$masterID);
+		//register_apns($token,$appName,$userID,$deviceName,$masterID);
 	}
 	
 	if($tool == 'send'){
