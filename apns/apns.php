@@ -110,7 +110,7 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token, $isSandbox){
 
 	$ch = curl_init($url);
 	
-	$certificate_location = '/etc/apache2/ssl/kumpeapps.com/fullchain.pem';
+	$certificate_location = '/etc/letsencrypt/cloudns/kumpeapps.com/fullchain.pem';
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $certificate_location);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $certificate_location);
 
