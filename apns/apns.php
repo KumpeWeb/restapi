@@ -27,7 +27,7 @@ function send_apns($Title, $Body, $Badge, $Sound, $userID, $appName, $Action){
 	global $conn;
 	//Get List of users taht have access to Behavior Chart 
 	$TokenData = "CALL `Apps_APNs`.getTokens($userID,'$appName');";  
-	$TokenQuery = mysqli_query($conn, $TokenData) or die("Couldn't execute query. ". mysqli_error($connection)); 
+	$TokenQuery = mysqli_query($conn, $TokenData) or die("Couldn't execute query. ". mysqli_error($conn)); 
 	$Tokens = array();
 
 	//Run script for each user
