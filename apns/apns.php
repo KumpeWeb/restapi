@@ -26,6 +26,16 @@ function register_apns($token,$appName,$userID,$deviceName,$masterID){
 	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 }
 
+function delete_apns($token) {
+	global $conn;
+	$sql = "
+		DELETE FROM `Apps_APNs`.`Tokens` 
+		WHERE 1=1
+			AND token = '$token'
+	";
+	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+}
+
 function subscribe_apns($appName,$userID,$masterID,$sectionName){
 	global $conn;
 	$sql = "
