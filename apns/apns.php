@@ -95,9 +95,9 @@ function build_push_to_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Acti
 	exit();
 }
 // ***********************************************************************************
-function push_to_apns($arParam, &$ar_msg, $arSendData, $Token, $isSandbox){
+function push_to_apns($arParam, &$ar_msg, $arSendData, $Token){
 
-	
+	global $isSandbox;
 
 	$sendDataJson = json_encode($arSendData);
   
