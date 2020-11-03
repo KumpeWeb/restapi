@@ -49,8 +49,8 @@ if($allowPost){
 			FROM
     			Apps_APNs.Subscriptions
 			WHERE 1=1
-				AND appName = $appName
-    			AND sectionName = $Section $useridquery $masteridquery;
+				AND appName = '$appName'
+    			AND sectionName = '$Section' $useridquery $masteridquery;
 		";  
 		$UserQuery = mysqli_query($conn, $UserData) or die("Couldn't execute query. ". mysqli_error($conn)); 
 		$Users = array();
