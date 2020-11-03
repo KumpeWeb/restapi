@@ -44,7 +44,7 @@ function send_apns($Title, $Body, $Badge, $Sound, $userID, $appName, $Action){
 function build_push_to_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Action) {
 	
 	$action = $Action;
-echo $Badge;
+
 	if(ISSET($_REQUEST['isBackgroundNotification'])){
 		$isBackgroundNotification = true;
 	}else{
@@ -67,11 +67,10 @@ echo $Badge;
 	}
 	
 		$arSendData['aps']['sound'] = sprintf($Sound); // sound
-	//if($Badge != "NULL"){
-	echo 'yes';
+
 		$arSendData['aps']['badge'] = $Badge; // badge #
-	//}
-	
+
+
 	if($isBackgroundNotification){
 		$arSendData['aps']['content-available'] = 1;
 	}
