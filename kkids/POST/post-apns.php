@@ -13,16 +13,16 @@ if($allowPost){
 	$updatedBy = $authenticatedUser;
 	$userID = $_REQUEST['kidUserId'];
 	$tool = $_REQUEST['tool'];
-	$token = $_REQUEST['token'];
+	$token = (isset($_REQUEST['token']) ? $_REQUEST['token'] : NULL);
 	$appName = 'com.kumpeapps.ios.kkid';
-	$deviceName = $_REQUEST['deviceName'];
-	$Title = $_REQUEST['title'];
-	$Body = $_REQUEST['body'];
+	$deviceName = (isset($_REQUEST['deviceName']) ? $_REQUEST['deviceName'] : NULL);
+	$Title = (isset($_REQUEST['title']) ? $_REQUEST['title'] : NULL);
+	$Body = (isset($_REQUEST['body']) ? $_REQUEST['body'] : NULL);
 	$Badge = (is_numeric($_REQUEST['badge']) ? (int)$_REQUEST['badge'] : NULL);
-	$Sound = $_REQUEST['sound'];
+	$Sound = (isset($_REQUEST['sound']) ? $_REQUEST['sound'] : "");
 	$appName = 'com.kumpeapps.ios.kkid';
-	$Action = $_REQUEST['action'];
-	$Section = $_REQUEST['section'];
+	$Action = (isset($_REQUEST['action']) ? $_REQUEST['action'] : NULL);
+	$Section = (isset($_REQUEST['section']) ? $_REQUEST['section'] : NULL);
 	
 	if($tool == 'register' && $isSuperuser){
 		register_apns($token,$appName,$userID,$deviceName,$masterID);
