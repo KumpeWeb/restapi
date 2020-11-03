@@ -13,6 +13,7 @@ echo "test";
 	";
 	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 	echo $query;
+	return;
 }
 
 function subscribe_apns($appName,$userID,$masterID,$sectionName){
