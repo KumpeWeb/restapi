@@ -12,7 +12,7 @@ function register_apns($token,$appName,$userID,$deviceName,$masterID){
 	";
 	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 }
-
+/*
 function subscribe_apns($appName,$userID,$masterID,$sectionName){
 	$sql="
 		INSERT INTO `Apps_APNs`.`Subscriptions` (appName, userID, masterID, sectionName)
@@ -118,7 +118,7 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token, $isSandbox){
 		else{ fwrite($fp_ng, $output); }
 
 		if(intval($httpcode) == 410){ fwrite($fp_410, $output); }
-  */
+  *//*
   curl_close($ch);
   
   if(intval($httpcode) == 410){ 
@@ -139,6 +139,6 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token, $isSandbox){
 
 	return TRUE;
 }
-
+*/
 ?>
 
