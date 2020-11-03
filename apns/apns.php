@@ -129,12 +129,12 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token){
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $ar_request_head);
 	$response = curl_exec($ch);
 	$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-	echo $response;
+	echo "response".$response."/response";
 
 	if(empty(curl_error($ch))){
     // echo "empty curl error \n";
 	}else{
-		echo curl_error($ch);
+		echo "error".curl_error($ch)."/error";
 	}
 
 	// Logging
