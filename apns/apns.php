@@ -2,7 +2,7 @@
 /*
 Simple iOS push notification with auth key
 */
-	include_once('/var/www/html/kumpeapps.com/api/apns/inc_jwt_helper.php');
+	use \Firebase\JWT\JWT;
 	
 if(isset($_REQUEST['isSandbox']) && $_REQUEST['isSandbox'] == 1){
 	$isSandbox = true;
@@ -129,12 +129,11 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token){
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $ar_request_head);
 	$response = curl_exec($ch);
 	$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-	echo "response".$response."/response";
 
 	if(empty(curl_error($ch))){
     // echo "empty curl error \n";
 	}else{
-		echo "error".curl_error($ch)."/error";
+		echo curl_error($ch);
 	}
 
 	// Logging
