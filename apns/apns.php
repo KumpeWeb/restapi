@@ -134,6 +134,7 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token){
     // echo "empty curl error \n";
 	}else{
 		echo curl_error($ch);
+		echo "1";
 	}
 
 	// Logging
