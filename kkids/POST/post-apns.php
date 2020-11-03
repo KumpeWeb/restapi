@@ -36,7 +36,7 @@ if($allowPost){
 			$useridquery = " AND userID = '$userID'";
 		}
 		
-		if($isSuperUser && $masterID == '0'){
+		if($isSuperuser && $masterID == '0'){
 			$masteridquery = '';
 		}else{
 			$masteridquery = " AND masterID = '$masterID'";
