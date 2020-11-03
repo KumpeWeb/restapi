@@ -101,7 +101,7 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token){
 
 	$sendDataJson = json_encode($arSendData);
   
-	$endPoint = 'https://api.push.apple.com/3/device'; // https://api.[sandbox.]push.apple.com/3/device
+	$endPoint = 'https://api.sandbox.push.apple.com/3/device'; // https://api.[sandbox.]push.apple.com/3/device
 	
 	if($isSandbox){
 		$endPoint = "https://api.sandbox.push.apple.com/3/device";
