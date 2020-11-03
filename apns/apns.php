@@ -42,7 +42,7 @@ function send_apns($Title, $Body, $Badge, $Sound, $userID, $appName, $Action){
 }
 	
 function build_push_to_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Action) {
-	$Badge = (is_numeric($Badge) ? (int)$Badge : NULL);
+	
 	$action = $Action;
 
 	if(ISSET($_REQUEST['isBackgroundNotification'])){
@@ -97,6 +97,9 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token){
   
 	$endPoint = 'https://api.sandbox.push.apple.com/3/device'; // https://api.[sandbox.]push.apple.com/3/device
 	
+	if($isSandbox = '1'){
+		$endPoint = "https://api.sandbox.push.apple.com/3/device";
+	}
 
 	//　Preparing request header for APNS
 	$ar_request_head[] = sprintf("content-type: application/json");
