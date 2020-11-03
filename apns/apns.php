@@ -5,7 +5,7 @@ Simple iOS push notification with auth key
 	use \Firebase\JWT\JWT;
 	
 function register_apns($token,$appName,$userID,$deviceName,$masterID){
-echo "test";
+echo "tests";
 	$sql = "
 		INSERT INTO `Apps_APNs`.`Tokens` (token, appName, userID, deviceName, masterID, lastUpdated, markForDeletion)
 			VALUES('$token','$appName','$userID','$deviceName','$masterID',now(),0) 
