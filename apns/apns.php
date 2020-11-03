@@ -4,6 +4,18 @@ Simple iOS push notification with auth key
 */
 	include_once('/var/www/html/kumpeapps.com/api/apns/inc_jwt_helper.php');
 	
+if(isset($_REQUEST['isSandbox']) && $_REQUEST['isSandbox'] == 1){
+	$isSandbox = true;
+}else{
+	$isSandbox = false;
+}
+
+if(ISSET($_REQUEST['isBackgroundNotification']) && $_REQUEST['isBackgroundNotification'] == 1){
+		$isBackgroundNotification = true;
+	}else{
+		$isBackgroundNotification = false;
+	}
+	
 function register_apns($token,$appName,$userID,$deviceName,$masterID){
 	global $conn;
 	$sql = "
@@ -45,11 +57,7 @@ function build_push_to_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Acti
 	
 	$action = $Action;
 
-	if(ISSET($_REQUEST['isBackgroundNotification'])){
-		$isBackgroundNotification = true;
-	}else{
-		$isBackgroundNotification = false;
-	}
+	global $isBackgroundNotification;
 		
 	$authKey = "/var/www/html/kumpeapps.com/api/apns/AuthKey_KXTY95CN6R.p8";
   	$arParam['teamId'] = '2T42Z3DM34';// Get it from Apple Developer's page
@@ -95,9 +103,9 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token){
 
 	$sendDataJson = json_encode($arSendData);
   
-	$endPoint = 'https://api.sandbox.push.apple.com/3/device'; // https://api.[sandbox.]push.apple.com/3/device
+	$endPoint = 'https://api.push.apple.com/3/device'; // https://api.[sandbox.]push.apple.com/3/device
 	
-	if($isSandbox = '1'){
+	if($isSandbox){
 		$endPoint = "https://api.sandbox.push.apple.com/3/device";
 	}
 
