@@ -67,7 +67,7 @@ echo $Badge;
 	}
 	
 		$arSendData['aps']['sound'] = sprintf($Sound); // sound
-	if($Badge != NULL){
+	if($Badge != "NULL"){
 		$arSendData['aps']['badge'] = $Badge; // badge #
 	}
 	
