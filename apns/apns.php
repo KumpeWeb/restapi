@@ -67,10 +67,10 @@ echo $Badge;
 	}
 	
 		$arSendData['aps']['sound'] = sprintf($Sound); // sound
-	if($Badge != "NULL"){
+	//if($Badge != "NULL"){
 	echo 'yes';
 		$arSendData['aps']['badge'] = $Badge; // badge #
-	}
+	//}
 	
 	if($isBackgroundNotification){
 		$arSendData['aps']['content-available'] = 1;
