@@ -18,7 +18,7 @@ if($allowPost){
 	$deviceName = $_REQUEST['deviceName'];
 	
 	if($tool == 'register'){
-//		register_apns($token,$appName,$userID,$deviceName,$masterID);
+		register_apns($token,$appName,$userID,$deviceName,$masterID);
 	}
 	
 	$json = array("status" => 1, "message" => "POST Successful");

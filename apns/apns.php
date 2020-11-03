@@ -2,7 +2,7 @@
 /*
 Simple iOS push notification with auth key
 */
-	use \Firebase\JWT\JWT;
+	//use \Firebase\JWT\JWT;
 	
 function register_apns($token,$appName,$userID,$deviceName,$masterID){
 	$sql="
