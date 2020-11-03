@@ -18,7 +18,7 @@ if($allowPost){
 	$deviceName = (isset($_REQUEST['deviceName']) ? $_REQUEST['deviceName'] : NULL);
 	$Title = (isset($_REQUEST['title']) ? $_REQUEST['title'] : NULL);
 	$Body = (isset($_REQUEST['body']) ? $_REQUEST['body'] : NULL);
-	$Badge = (is_numeric($_REQUEST['badge']) ? (int)$_REQUEST['badge'] : NULL);
+	$Badge = (isset($_REQUEST['badge']) ? (int)$_REQUEST['badge'] : NULL);
 	$Sound = (isset($_REQUEST['sound']) ? $_REQUEST['sound'] : "");
 	$appName = 'com.kumpeapps.ios.kkid';
 	$Action = (isset($_REQUEST['action']) ? $_REQUEST['action'] : NULL);
