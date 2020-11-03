@@ -15,22 +15,36 @@ function register_apns($token,$appName,$userID,$deviceName,$masterID){
 }
 
 function subscribe_apns($appName,$userID,$masterID,$sectionName){
+	global $conn;
 	$sql="
 		INSERT INTO `Apps_APNs`.`Subscriptions` (appName, userID, masterID, sectionName)
 			VALUES('$appName','$userID','$masterID','$sectionName')
 	";
 	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 }
+
+function send_apns($Title, $Body, $Badge, $Sound, $userID, $appName, $Action){
+	global $conn;
+	//Get List of users taht have access to Behavior Chart 
+	$TokenData = "CALL `Apps_APNs`.getTokens($userID,'$appName');";  
+	$TokenQuery = mysqli_query($conn, $TokenData) or die("Couldn't execute query. ". mysqli_error($connection)); 
+	$Tokens = array();
+
+	//Run script for each user
+	while($Token = mysqli_fetch_array($TokenQuery))
+    	$Tokens[] = $Token;
+	foreach($Tokens as $TokenArray){ 
+		//Set dbEXT for User
+    	$Token = $TokenArray['Push_Token'];
+		build_push_to_apns($Title, $Body, $Badge, $Sound, $Token, $appName, $Action);
+	}
+
+}
 	
-function send_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Action) {
+function build_push_to_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Action) {
 	$Badge = (is_numeric($Badge) ? (int)$Badge : NULL);
 	$action = $Action;
-	
-	
-	
-	$includeAlert = true;
-	$includeBadge = true;
-	
+
 	if(ISSET($_REQUEST['isBackgroundNotification'])){
 		$isBackgroundNotification = true;
 	}
@@ -49,13 +63,13 @@ function send_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Action) {
 	$arSendData = array();
 	$arSendData['aps']['action'] = sprintf($action);
 
-	if(isset($_REQUEST['title'])){
+	if($Title != "" && $Title != NULL){
 		$arSendData['aps']['alert']['title'] = sprintf($Title); // Notification title
 		$arSendData['aps']['alert']['body'] = sprintf($Body); // body text
 	}
 	
 		$arSendData['aps']['sound'] = sprintf($Sound); // sound
-	if(isset($_REQUEST['badge'])){
+	if($Badge != "" && $Badge != NULL){
 		$arSendData['aps']['badge'] = $Badge; // badge #
 	}
 	
@@ -123,21 +137,8 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token, $isSandbox){
   curl_close($ch);
   
   if(intval($httpcode) == 410){ 
-  echo("Invalid Token");
-  echo($Token);
-  	$host = "sql.kumpedns.us";
-	$user = "Apps_APNs";
-	$password = "Tc4wcPikQ";
-	$database = "Apps_APNs";
-	
-	$data = "DELETE FROM `APNS_Tokens` WHERE `Push_Token` = '".$Token."'";
-	$connection = mysqli_connect($host,$user,$password) or die ("Couldn't connect to server."); 
-	$db = mysqli_select_db($connection, $database) or die ("Couldn't select database.");
-  	$Query = mysqli_query($connection, $data) or die("Couldn't execute query. ". mysqli_error($connection));
-  }
+  	echo("Invalid Token");
   
-	
-
 	return TRUE;
 }
 
