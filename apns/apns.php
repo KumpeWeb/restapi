@@ -47,8 +47,8 @@ function send_apns($Title, $Body, $Badge, $Sound, $userID, $appName, $Action){
     	$Tokens[] = $Token;
 	foreach($Tokens as $TokenArray){ 
 		//Set dbEXT for User
-    	$Token = $TokenArray['token'];
-		build_push_to_apns($Title, $Body, $Badge, $Sound, $Token, $appName, $Action);
+    	$UserToken = $TokenArray['token'];
+		build_push_to_apns($Title, $Body, $Badge, $Sound, $UserToken, $appName, $Action);
 	}
 
 }
