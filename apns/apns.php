@@ -28,9 +28,22 @@ function register_apns($token,$appName,$userID,$deviceName,$masterID){
 
 function subscribe_apns($appName,$userID,$masterID,$sectionName){
 	global $conn;
-	$sql="
+	$sql = "
 		INSERT INTO `Apps_APNs`.`Subscriptions` (appName, userID, masterID, sectionName)
 			VALUES('$appName','$userID','$masterID','$sectionName')
+	";
+	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+}
+
+function unsubscribe_apns($appName,$userID,$masterID,$sectionName){
+	global $conn;
+	$sql = "
+		DELETE FROM `Apps_APNs`.`Subscriptions` 
+		WHERE 1=1
+			AND appName = '$appName'
+			AND userID = '$userID'
+			AND masterID = '$masterID'
+			AND sectionName = '$sectionName'
 	";
 	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 }
