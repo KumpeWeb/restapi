@@ -2,7 +2,7 @@
 /*
 Simple iOS push notification with auth key
 */
-	use \Firebase\JWT\JWT;
+	include_once('/var/www/html/kumpeapps.com/api/apns/inc_jwt_helper.php');
 	
 function register_apns($token,$appName,$userID,$deviceName,$masterID){
 	global $conn;
