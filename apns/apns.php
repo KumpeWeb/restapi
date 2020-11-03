@@ -2,26 +2,87 @@
 /*
 Simple iOS push notification with auth key
 */
-	use \Firebase\JWT\JWT;
+	include_once('/var/www/html/kumpeapps.com/api/apns/inc_jwt_helper.php');
 	
-function send_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Action) {
-	$Badge = (is_numeric($Badge) ? (int)$Badge : NULL);
-	$action = $Action;
-	
-	
-	
-	$includeAlert = true;
-	$includeBadge = true;
-	
-	if(ISSET($_REQUEST['isBackgroundNotification'])){
+if(isset($_REQUEST['isSandbox']) && $_REQUEST['isSandbox'] == 1){
+	$isSandbox = true;
+}else{
+	$isSandbox = false;
+}
+
+if(ISSET($_REQUEST['isBackgroundNotification']) && $_REQUEST['isBackgroundNotification'] == 1){
 		$isBackgroundNotification = true;
+	}else{
+		$isBackgroundNotification = false;
 	}
 	
-	if(ISSET($_REQUEST['isSandbox'])){
-		$isSandbox = true;
+function register_apns($token,$appName,$userID,$deviceName,$masterID){
+	global $conn;
+	$sql = "
+		INSERT INTO `Apps_APNs`.`Tokens` (token, appName, userID, deviceName, masterID, lastUpdated, markForDeletion)
+			VALUES('$token','$appName','$userID','$deviceName','$masterID',now(),0) 
+			ON DUPLICATE KEY UPDATE userID='$userID', deviceName='$deviceName', masterID='$masterID', lastUpdated=now(), markForDeletion=0
+	";
+	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+}
+
+function delete_apns($token) {
+	global $conn;
+	$sql = "
+		DELETE FROM `Apps_APNs`.`Tokens` 
+		WHERE 1=1
+			AND token = '$token'
+	";
+	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+}
+
+function subscribe_apns($appName,$userID,$masterID,$sectionName){
+	global $conn;
+	$sql = "
+		INSERT INTO `Apps_APNs`.`Subscriptions` (appName, userID, masterID, sectionName)
+			VALUES('$appName','$userID','$masterID','$sectionName')
+	";
+	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+}
+
+function unsubscribe_apns($appName,$userID,$masterID,$sectionName){
+	global $conn;
+	$sql = "
+		DELETE FROM `Apps_APNs`.`Subscriptions` 
+		WHERE 1=1
+			AND appName = '$appName'
+			AND userID = '$userID'
+			AND masterID = '$masterID'
+			AND sectionName = '$sectionName'
+	";
+	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+}
+
+function send_apns($Title, $Body, $Badge, $Sound, $userID, $appName, $Action){
+	global $conn;
+	//Get List of users taht have access to Behavior Chart 
+	$TokenData = "CALL `Apps_APNs`.getTokens($userID,'$appName');";  
+	$TokenQuery = mysqli_query($conn, $TokenData) or die("Couldn't execute query. ". mysqli_error($conn)); 
+	$Tokens = array();
+
+	//Run script for each user
+	while($Token = mysqli_fetch_array($TokenQuery))
+    	$Tokens[] = $Token;
+	foreach($Tokens as $TokenArray){ 
+		//Set dbEXT for User
+    	$UserToken = $TokenArray['token'];
+		build_push_to_apns($Title, $Body, $Badge, $Sound, $UserToken, $appName, $Action);
 	}
+
+}
+	
+function build_push_to_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Action) {
+	
+	$action = $Action;
+
+	global $isBackgroundNotification;
 		
-	$authKey = "AuthKey_KXTY95CN6R.p8";
+	$authKey = "/var/www/html/kumpeapps.com/api/apns/AuthKey_KXTY95CN6R.p8";
   	$arParam['teamId'] = '2T42Z3DM34';// Get it from Apple Developer's page
  	$arParam['authKeyId'] = 'KXTY95CN6R';
   	$arParam['apns-topic'] = $AppID;
@@ -31,16 +92,16 @@ function send_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Action) {
 	$arSendData = array();
 	$arSendData['aps']['action'] = sprintf($action);
 
-	if(isset($_REQUEST['title'])){
+	if($Title != "" && $Title != NULL){
 		$arSendData['aps']['alert']['title'] = sprintf($Title); // Notification title
 		$arSendData['aps']['alert']['body'] = sprintf($Body); // body text
 	}
 	
 		$arSendData['aps']['sound'] = sprintf($Sound); // sound
-	if(isset($_REQUEST['badge'])){
+
 		$arSendData['aps']['badge'] = $Badge; // badge #
-	}
-	
+
+
 	if($isBackgroundNotification){
 		$arSendData['aps']['content-available'] = 1;
 	}
@@ -53,19 +114,23 @@ function send_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Action) {
 	$stat = push_to_apns($arParam, $ar_msg, $arSendData, $Token);
 	if($stat == FALSE){
     // err handling
-		exit();
+		//exit();
 	}
 
-	exit();
+	//exit();
 }
 // ***********************************************************************************
-function push_to_apns($arParam, &$ar_msg, $arSendData, $Token, $isSandbox){
+function push_to_apns($arParam, &$ar_msg, $arSendData, $Token){
 
-	
+	global $isSandbox;
 
 	$sendDataJson = json_encode($arSendData);
   
 	$endPoint = 'https://api.push.apple.com/3/device'; // https://api.[sandbox.]push.apple.com/3/device
+	
+	if($isSandbox){
+		$endPoint = "https://api.sandbox.push.apple.com/3/device";
+	}
 
 	//　Preparing request header for APNS
 	$ar_request_head[] = sprintf("content-type: application/json");
@@ -78,7 +143,7 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token, $isSandbox){
 
 	$ch = curl_init($url);
 	
-	$certificate_location = '/etc/apache2/ssl/kumpeapps.com/fullchain.pem';
+	$certificate_location = '/etc/letsencrypt/cloudns/kumpeapps.com/fullchain.pem';
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $certificate_location);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $certificate_location);
 
@@ -104,24 +169,11 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token, $isSandbox){
   */
   curl_close($ch);
   
-  if(intval($httpcode) == 410){ 
-  echo("Invalid Token");
-  echo($Token);
-  	$host = "sql.kumpedns.us";
-	$user = "Apps_APNs";
-	$password = "Tc4wcPikQ";
-	$database = "Apps_APNs";
-	
-	$data = "DELETE FROM `APNS_Tokens` WHERE `Push_Token` = '".$Token."'";
-	$connection = mysqli_connect($host,$user,$password) or die ("Couldn't connect to server."); 
-	$db = mysqli_select_db($connection, $database) or die ("Couldn't select database.");
-  	$Query = mysqli_query($connection, $data) or die("Couldn't execute query. ". mysqli_error($connection));
-  }
+  	if(intval($httpcode) == 410){ 
+  		echo("Invalid Token");
   
-	
-
-	return TRUE;
+		return TRUE;
+	}
 }
 
 ?>
-

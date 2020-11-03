@@ -2,7 +2,7 @@
 
 require_once '/var/www/html/kumpeapps.com/api/caseConverter.php';
 require_once '/var/www/html/kumpeapps.com/api/boolOutput.php';
-require_once '/var/www/html/API/GoogleAuthenticator.php';
+require_once '/var/www/html/kumpeapps.com/api/GoogleAuthenticator.php';
 $ga = new GoogleAuthenticator();
 
 // Set Status to 400 (Bad Request)
