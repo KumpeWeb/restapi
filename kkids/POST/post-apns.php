@@ -6,7 +6,7 @@ if($allowPost){
 	// Set Status to 202 (Accepted)
 	$statusCode = 202;
 	
-	if($isSuperuser){
+	if($isSuperUser){
 		$masterID = $_REQUEST['masterID'];
 	}
 	
@@ -24,8 +24,8 @@ if($allowPost){
 	$Action = $_REQUEST['action'];
 	$Section = $_REQUEST['section'];
 	
-	if($tool == 'register' && $isSuperuser){
-		//register_apns($token,$appName,$userID,$deviceName,$masterID);
+	if($tool == 'register' && $isSuperUser){
+		register_apns($token,$appName,$userID,$deviceName,$masterID);
 	}
 	
 	if($tool == 'send'){
