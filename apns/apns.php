@@ -83,7 +83,7 @@ function build_push_to_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Acti
 
 	global $isBackgroundNotification;
 		
-	$authKey = "/var/www/html/kumpeapps.com/api/apns/apnskeys/AuthKey_A9Y45QVNXM.p8";
+	$authKey = "/var/www/html/kumpeapps.com/api/apns/authkeys/AuthKey_A9Y45QVNXM.p8";
   	$arParam['teamId'] = '2T42Z3DM34';// Get it from Apple Developer's page
  	$arParam['authKeyId'] = 'A9Y45QVNXM';
   	$arParam['apns-topic'] = $AppID;
