@@ -2,7 +2,10 @@
 /*
 Simple iOS push notification with auth key
 */
-	include_once('/var/www/html/kumpeapps.com/api/apns/inc_jwt_helper.php');
+
+require __DIR__ . '/vendor/autoload.php';
+
+use \Firebase\JWT\JWT;
 	
 if(isset($_REQUEST['isSandbox']) && $_REQUEST['isSandbox'] == 1){
 	$isSandbox = true;
