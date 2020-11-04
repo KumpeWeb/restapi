@@ -91,7 +91,7 @@ function build_push_to_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Acti
   	$arParam['apns-topic'] = $AppID;
 	$arClaim = ['iss'=>$arParam['teamId'], 'iat'=>time()];
 	$arParam['p_key'] = file_get_contents($authKey);
-	$arParam['header_jwt'] = JWT::encode($arClaim, $arParam['p_key'], $arParam['authKeyId'], 'RS256');
+	$arParam['header_jwt'] = JWT::encode($arClaim, $arParam['p_key'], $arParam['authKeyId'], 'ES256');
 	$arSendData = array();
 	$arSendData['aps']['action'] = sprintf($action);
 
