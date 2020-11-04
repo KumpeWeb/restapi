@@ -15,7 +15,7 @@ if($allowPut){
 	
 //Update User
 $url = "https://www.kumpeapps.com/api/users/$kidUserID";
-$apiKey = 'F3Ugh2Ug2H5ZdVgbifPg';
+$apiKey = $kumpeAppsApiKey;
 $fields = array(
     '_key' => $apiKey,
     '_method' => "PUT",
