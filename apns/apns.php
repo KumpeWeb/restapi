@@ -3,7 +3,7 @@
 Simple iOS push notification with auth key
 */
 
-require __DIR__ . '/vendor/autoload.php';
+include_once('/var/www/html/kumpeapps.com/api/apns/inc_jwt_helper.php');
 
 use \Firebase\JWT\JWT;
 	
@@ -91,7 +91,7 @@ function build_push_to_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Acti
   	$arParam['apns-topic'] = $AppID;
 	$arClaim = ['iss'=>$arParam['teamId'], 'iat'=>time()];
 	$arParam['p_key'] = file_get_contents($authKey);
-	$arParam['header_jwt'] = JWT::encode($arClaim, $arParam['p_key'], $arParam['authKeyId'], 'ES256');
+	$arParam['header_jwt'] = JWT::encode($arClaim, $arParam['p_key'], $arParam['authKeyId'], 'RS256');
 	$arSendData = array();
 	$arSendData['aps']['action'] = sprintf($action);
 
