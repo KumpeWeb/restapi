@@ -25,7 +25,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
     			masterID
 			FROM
     			Apps_APNs.Subscriptions
-			WHERE 1=1
+			HAVING 1=1
 				AND appName = '$appName'
     			AND sectionName = '$Section' $useridquery;
 		";
