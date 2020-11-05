@@ -14,13 +14,22 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 		if($userID == '0'){
 			$useridquery = '';
 		}else if (!is_numeric($userID)){
-			$useridquery = " HAVING userID = getUserID($userID)";
+			$getUserID = "SELECT getUserID('$userID');";
+			$userID = mysqli_query($conn, $getUserID) or die("Couldn't execute query. ". mysqli_error($conn)); 
+			$useridquery = " AND userID = '$userID'";
 		}else{
 			$useridquery = " AND userID = '$userID'";
 		}
 		
 		$UserData1 = "
-			CALL getUsersBySubscription($userID,'$appName','$Section');
+			SELECT 
+    			userID,
+    			masterID
+			FROM
+    			Apps_APNs.Subscriptions
+			WHERE 1=1
+				AND appName = '$appName'
+    			AND sectionName = '$Section' $useridquery;
 		";
 		$UserQuery1 = mysqli_query($conn, $UserData1) or die("Couldn't execute query. ". mysqli_error($conn)); 
 		$Users = array();
