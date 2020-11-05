@@ -99,6 +99,7 @@ if($allowPut){
         		AND Day != 'Weekly'
         		AND Status = 'todo';
 		";
+		echo $sql2;
 		$choreCountData = mysqli_query($conn, $sql2) or die(mysqli_error($conn));
 		$choreCountArray = mysqli_fetch_array($choreCountData);
 		$choreCount = $choreCountArray['Count'];
