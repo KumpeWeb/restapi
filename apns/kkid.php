@@ -42,6 +42,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
     		$Users[] = $User;
 		foreach($Users as $UserArray){ 
 		error_log($UserArray['userID']);
+		error_log($Badge);
 			send_apns($Title, $Body, $Badge, $Sound, $UserArray['userID'], $appName, $Action);
 		}
 	}
