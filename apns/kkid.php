@@ -25,7 +25,6 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 				AND appName = '$appName'
     			AND sectionName = '$Section' $useridquery;
 		";
-		echo $UserData;
 		$UserQuery = mysqli_query($conn, $UserData) or die("Couldn't execute query. ". mysqli_error($conn)); 
 		$Users = array();
 
