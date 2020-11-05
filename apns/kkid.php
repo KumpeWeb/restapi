@@ -14,9 +14,10 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 		if($userID == '0'){
 			$useridquery = '';
 		}else if (!is_numeric($userID)){
-			$getUserID = "SELECT getUserID($userID);";
+			$getUserID = "SELECT getUserID($userID) as userID;";
 			$userID1 = mysqli_query($conn, $getUserID) or die("Couldn't execute query. ". mysqli_error($conn)); 
-			$userID = mysqli_fetch_array($userID1);
+			$userIDarray = mysqli_fetch_array($userID1);
+			$userID = $userIDarray['userID'];
 			$useridquery = " AND userID = '$userID'";
 		}else{
 			$useridquery = " AND userID = '$userID'";
