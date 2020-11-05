@@ -11,14 +11,21 @@ $conn2 = mysqli_connect($sqlHost, $sqlUser, $sqlPass);
     			userID,
     			masterID,
     			username,
-    			8 AS choreCount
-			FROM
-    			Apps_KKid.User_Permissions
-			WHERE 1=1
-				AND isActive = 'Yes'
-    			AND isBanned = 'No'
-				AND username NOT LIKE 'Apps_%'
-    			AND username NOT LIKE 'API_%';
+    			 (SELECT 
+    				COUNT(*) as Count
+				FROM
+    				Apps_KKid.Chores__Today
+				WHERE 1=1
+					AND kid = Apps_KKid.User_Permissions.username
+        			AND Day != 'Weekly'
+        			AND Status = 'todo') AS choreCount
+				FROM
+    				Apps_KKid.User_Permissions
+				WHERE 1=1
+					AND isActive = 'Yes'
+    				AND isBanned = 'No'
+					AND username NOT LIKE 'Apps_%'
+    				AND username NOT LIKE 'API_%';
 		";
 	$UserQuery1 = mysqli_query($conn2, $UserSQL1) or die("Couldn't execute query. ". mysqli_error($conn2)); 
 	$Users = array();
