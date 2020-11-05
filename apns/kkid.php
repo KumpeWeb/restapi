@@ -44,5 +44,36 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 			send_apns($Title, $Body, $Badge, $Sound, $UserArray['userID'], $appName, $Action);
 		}
 	}
+	
+	function kkidPushNotificationAsync($userID,$Section,$Title,$Body,$Badge,$Sound,$Action) {
+		//Create User
+		$url = 'https://preprod.kumpeapps.com/api/apns/kkid_push.php';
+		$nonce = NonceUtil::generate(NONCE_SECRET, 10);
+		$fields = array(
+    		'nonce' => $nonce,
+    		'userID' => $userID,
+    		'Section' => $Section,
+    		'Title' => $Title,
+    		'Body' => $Body,
+    		'Badge' => $Badge,
+    		'Sound' => $Sound,
+    		'Action' => $Action,
+		);
+		//open connection
+		$ch = curl_init();
+
+		//set the url, number of POST vars, POST data
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($fields));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-type: application/x-www-form-urlencoded"));
+
+		//execute post
+		$curlResponse = curl_exec($ch);
+		$response1 = json_decode($curlResponse,true);
+		//close connection
+		curl_close($ch);
+	}
 		
 ?>

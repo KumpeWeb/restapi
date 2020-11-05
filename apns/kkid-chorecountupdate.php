@@ -29,9 +29,8 @@ $conn2 = mysqli_connect($sqlHost, $sqlUser, $sqlPass);
 		//Set dbEXT for User
 		$username = $UserArray['username'];
 		$choreCount = $UserArray['choreCount'];
-	echo 'ttest';
 		//work on this function
-		kkidPushNotification($username,"Chores",NULL,NULL,intval($choreCount),"",NULL);
+		kkidPushNotificationAsync($username,"Chores",NULL,NULL,intval($choreCount),"",NULL);
 	}
 
 ?>
