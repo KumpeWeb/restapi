@@ -33,7 +33,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 				AND appName = '$appName'
     			AND sectionName = '$Section' $useridquery;
 		";
-		echo $UserData1;
+		
 		$UserQuery1 = mysqli_query($conn, $UserData1) or die("Couldn't execute query. ". mysqli_error($conn)); 
 		$Users = array();
 
