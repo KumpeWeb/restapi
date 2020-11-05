@@ -130,11 +130,13 @@ if($allowPost){
 		WHERE 1=1
 			AND kid = '$kidUsername'
         	AND Day != 'Weekly'
-        	AND Status = 'todo';;
+        	AND Status = 'todo';
 	";
 	$choreCountData = mysqli_query($conn, $sql2) or die(mysqli_error($conn));
 	$choreCountArray = mysqli_fetch_array($choreCountData);
 	$choreCount = $choreCountArray['Count'];
+	echo $sql2;
+	echo $choreCount;
 	
 	// kkidPushNotification($kidUsername,"Chores",NULL,NULL,$choreCount,"",NULL);
 	kkidPushNotification($kidUsername,"Chores-New","$day New Chore Added","$choreName has been added to your chore list for $day.",$choreCount,"default",NULL);
