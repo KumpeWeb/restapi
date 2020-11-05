@@ -10,9 +10,11 @@ if($allowPut){
 	$updatedBy = $authenticatedUser;
 	
 	if(isset($_REQUEST['kidUsername'])){
-		$kidUsername = "AND kid = '".$_REQUEST['kidUsername']."'";
+		$kidUsername = $_REQUEST['kidUsername'];
+		$kidUsernameWhere = "AND kid = '$kidUsername'";
 	}else{
-		$kidUsername = '';
+		$kidUsernameWhere = '';
+		$kidUsername = NULL;
 	}
 	
 	if(isset($_REQUEST['nfcTag'])){
@@ -85,23 +87,26 @@ if($allowPut){
     		
 	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 	
-	$sql2 = "
-		SELECT 
-    		COUNT(*) as Count
-		FROM
-    		Apps_KKid.Chores__Today
-		WHERE 1=1
-			AND kid = '$kidUsername'
-        	AND Day != 'Weekly'
-        	AND Status = 'todo';
-	";
-	$choreCountData = mysqli_query($conn, $sql2) or die(mysqli_error($conn));
-	$choreCountArray = mysqli_fetch_array($choreCountData);
-	$choreCount = $choreCountArray['Count'];
+	if(($kidUsername != NULL)) {
+
+		$sql2 = "
+			SELECT 
+    			COUNT(*) as Count
+			FROM
+    			Apps_KKid.Chores__Today
+			WHERE 1=1
+				AND kid = '$kidUsername'
+        		AND Day != 'Weekly'
+        		AND Status = 'todo';
+		";
+		$choreCountData = mysqli_query($conn, $sql2) or die(mysqli_error($conn));
+		$choreCountArray = mysqli_fetch_array($choreCountData);
+		$choreCount = $choreCountArray['Count'];
 	
-	//work on this function
-	kkidPushNotification($kidUsername,"Chores",NULL,NULL,$choreCount,"default",NULL);
-	
+		//work on this function
+		kkidPushNotification($kidUsername,"Chores",NULL,NULL,$choreCount,"default",NULL);
+
+	}
 	if($query){
 		$json = array("status" => 1, "message" => "PUT Successful");
 		$statusCode = 200;
