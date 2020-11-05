@@ -3,7 +3,8 @@
 include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 
 	function kkidPushNotification($userID,$section,$Title,$Body,$Badge,$Sound,$Action){
-
+		global $conn;
+		
 		$appName = 'com.kumpeapps.ios.KKid';
 
 		if($userID == '0'){
