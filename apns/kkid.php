@@ -3,6 +3,9 @@
 include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 
 	function kkidPushNotification($userID,$Section,$Title,$Body,$Badge,$Sound,$Action){
+		global $sqlHost;
+		global $sqlUser;
+		global $sqlPass;
 		$conn = mysqli_connect($sqlHost, $sqlUser, $sqlPass);
 		mysqli_select_db($conn, "Apps_APNs");
 		
