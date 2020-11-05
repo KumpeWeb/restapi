@@ -48,7 +48,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 	
 	function kkidPushNotificationAsync($userID,$Section,$Title,$Body,$Badge,$Sound,$Action) {
 		//Create User
-		$url = 'https://preprod.kumpeapps.com/api/apns/kkid_push.php';
+		$url = 'https://api.kumpeapps.com/apns/kkid_push.php';
 		$nonce = NonceUtil::generate(NONCE_SECRET, 10);
 		$fields = array(
     		'nonce' => $nonce,
