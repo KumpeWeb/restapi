@@ -126,9 +126,10 @@ if($allowPost){
 		CALL Apps_KKid.getChoresCount('$kidUsername');
 	";
 	$choreCount = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+	echo $choreCount;
 	
 	// kkidPushNotification($kidUsername,"Chores",NULL,NULL,$choreCount,"",NULL);
-	kkidPushNotification($kidUsername,"Chores-New","$day New Chore Added","$choreName has been added to your chore list for $day.",5,"default",NULL);
+	kkidPushNotification($kidUsername,"Chores-New","$day New Chore Added","$choreName has been added to your chore list for $day.",$choreCount,"default",NULL);
 	
 	if($query){
 		$json = array("status" => 1, "message" => "POST Successful");
