@@ -1,5 +1,7 @@
 <?php
 
+include_once('/var/www/html/kumpeapps.com/api/apns/kkid.php');
+
 if($allowPut){
 	// Set Status to 202 (Accepted)
 	$statusCode = 202;
@@ -82,6 +84,22 @@ if($allowPut){
     		$kidUsername;";
     		
 	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+	
+	$sql2 = "
+		SELECT 
+    		COUNT(*) as Count
+		FROM
+    		Apps_KKid.Chores__Today
+		WHERE 1=1
+			AND kid = '$kidUsername'
+        	AND Day != 'Weekly'
+        	AND Status = 'todo';
+	";
+	$choreCountData = mysqli_query($conn, $sql2) or die(mysqli_error($conn));
+	$choreCountArray = mysqli_fetch_array($choreCountData);
+	$choreCount = $choreCountArray['Count'];
+	
+	kkidPushNotification($kidUsername,"Chores",NULL,NULL,$choreCount,"",NULL);
 	
 	if($query){
 		$json = array("status" => 1, "message" => "POST Successful");
