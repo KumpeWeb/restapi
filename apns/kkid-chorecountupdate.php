@@ -22,7 +22,7 @@ $conn2 = mysqli_connect($sqlHost, $sqlUser, $sqlPass);
 		";
 	$UserQuery1 = mysqli_query($conn2, $UserSQL1) or die("Couldn't execute query. ". mysqli_error($conn2)); 
 	$Users = array();
-
+echo $UserSQL1;
 	//Run script for each user
 	while($User = mysqli_fetch_array($UserQuery1))
     	$Users[] = $User;
