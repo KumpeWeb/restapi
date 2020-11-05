@@ -11,7 +11,7 @@ $conn2 = mysqli_connect($sqlHost, $sqlUser, $sqlPass);
     			userID,
     			masterID,
     			username,
-    			9 AS choreCount
+    			8 AS choreCount
 			FROM
     			Apps_KKid.User_Permissions
 			WHERE 1=1
@@ -30,7 +30,7 @@ $conn2 = mysqli_connect($sqlHost, $sqlUser, $sqlPass);
 		$username = $UserArray['username'];
 		$choreCount = $UserArray['choreCount'];
 		//work on this function
-		kkidPushNotificationAsync($username,"Chores","test2","test body",intval($choreCount),"default",NULL);
+		kkidPushNotificationAsync($username,"Chores",NULL,NULL,intval($choreCount),"",NULL);
 	}
 
 ?>
