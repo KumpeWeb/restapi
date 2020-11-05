@@ -23,9 +23,9 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
     			Apps_APNs.Subscriptions
 			WHERE 1=1
 				AND appName = '$appName'
-    			AND sectionName = '$Section' ;
+    			AND sectionName = '$Section' $useridquery;
 		";
-		
+		echo $UserData;
 		$UserQuery = mysqli_query($conn, $UserData) or die("Couldn't execute query. ". mysqli_error($conn)); 
 		$Users = array();
 
