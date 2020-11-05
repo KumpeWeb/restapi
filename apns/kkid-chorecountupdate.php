@@ -3,6 +3,9 @@
 include_once('/var/www/html/kumpeapps.com/api/sqlConfig.php');
 include_once('/var/www/html/kumpeapps.com/api/apns/kkid.php');
 
+$conn2 = mysqli_connect($sqlHost, $sqlUser, $sqlPass);
+		mysqli_select_db($conn2, "Apps_APNs");
+		
 	$UserSQL = "
 			SELECT 
     			userID,
@@ -17,7 +20,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/kkid.php');
 				AND username NOT LIKE 'Apps_%'
     			AND username NOT LIKE 'API_%';
 		";
-	$UserQuery = mysqli_query($conn, $UserSQL) or die("Couldn't execute query. ". mysqli_error($conn)); 
+	$UserQuery = mysqli_query($conn2, $UserSQL) or die("Couldn't execute query. ". mysqli_error($conn2)); 
 	$Users = array();
 
 	//Run script for each user
