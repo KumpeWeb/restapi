@@ -31,7 +31,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/kkid.php');
 			FROM
     			Apps_KKid.Chores__Today
 			WHERE 1=1
-				AND kid = '$kidUsername'
+				AND kid = '$username'
         		AND Day != 'Weekly'
         		AND Status = 'todo';
 		";
@@ -41,7 +41,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/kkid.php');
 		$choreCount = $choreCountArray['Count'];
 	
 		//work on this function
-		kkidPushNotification($kidUsername,"Chores",NULL,NULL,intval($choreCount),"",NULL);
+		kkidPushNotification($username,"Chores",NULL,NULL,intval($choreCount),"",NULL);
 	}
 
 ?>
