@@ -13,6 +13,12 @@ $Action = $_REQUEST['Action'];
 $nonce = $_REQUEST['nonce'];
 $validNonce = NonceUtil::check(NONCE_SECRET, $nonce);
 
+if(is_numeric($Badge)){
+	$Badge = intval($Badge);
+}else{
+	$Badge = NULL;
+}
+
 if($validNonce){
 	kkidPushNotification($userID,$Section,$Title,$Body,$Badge,$Sound,$Action);
 }else{
