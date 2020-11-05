@@ -2,7 +2,7 @@
 
 include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 
-	function kkidPushNotification($userID,$section,$Title,$Body,$Badge,$Sound,$Action){
+	function kkidPushNotification($userID,$Section,$Title,$Body,$Badge,$Sound,$Action){
 		global $conn;
 		
 		$appName = 'com.kumpeapps.ios.KKid';
@@ -10,7 +10,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 		if($userID == '0'){
 			$useridquery = '';
 		}else if (!is_numeric($userID)){
-			$useridquery = " AND userID = getUserID('$userID')";
+			$useridquery = " AND userID = getUserID($userID)";
 		}else{
 			$useridquery = " AND userID = '$userID'";
 		}
