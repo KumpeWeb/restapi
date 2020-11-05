@@ -1,5 +1,7 @@
 <?php
 
+include_once('/var/www/html/kumpeapps.com/api/apns/kkid.php');
+
 if($allowPost){
 	// Set Status to 202 (Accepted)
 	$statusCode = 202;
@@ -119,6 +121,14 @@ if($allowPost){
 			($kidUsername,$masterID,$day,$status,$choreName,$choreDescription,$choreNumber,$nfcTag,$blockDash,$oneTime,$extraAllowance,$optional,$reassignable,$canSteal,$notes,$startDate,'$updatedBy',now());";
     	
 	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+	
+	$sql2 = "
+		CALL Apps_KKid.getChoresCount('$kidUsername');
+	";
+	$choreCount = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+	
+	kkidPushNotification($userID,"Chores",NULL,NULL,$choreCount,"",NULL);
+	kkidPushNotification($userID,"Chores-New","$day New Chore Added","$choreName has been added to your chore list for $day.",$choreCount,"default",NULL);
 	
 	if($query){
 		$json = array("status" => 1, "message" => "POST Successful");
