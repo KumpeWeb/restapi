@@ -15,6 +15,8 @@ $validNonce = NonceUtil::check(NONCE_SECRET, $nonce);
 
 if($validNonce){
 	kkidPushNotification($userID,$Section,$Title,$Body,$Badge,$Sound,$Action);
+}else{
+	error_log("nonce invalid");
 }
 
 ?>
