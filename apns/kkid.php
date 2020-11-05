@@ -16,7 +16,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 			$useridquery = " AND userID = '$userID'";
 		}
 		
-		$UserData1 = " use Apps_APNs; 
+		$UserData1 = "
 			SELECT 
     			userID,
     			masterID
