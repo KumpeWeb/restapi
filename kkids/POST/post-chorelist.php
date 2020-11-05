@@ -127,7 +127,7 @@ if($allowPost){
 	";
 	$choreCount = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 	
-	kkidPushNotification($kidUsername,"Chores",NULL,NULL,$choreCount,"",NULL);
+	// kkidPushNotification($kidUsername,"Chores",NULL,NULL,$choreCount,"",NULL);
 	kkidPushNotification($kidUsername,"Chores-New","$day New Chore Added","$choreName has been added to your chore list for $day.",$choreCount,"default",NULL);
 	
 	if($query){
