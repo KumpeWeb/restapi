@@ -103,7 +103,7 @@ if($allowPut){
 	kkidPushNotification($kidUsername,"Chores",NULL,NULL,$choreCount,"default",NULL);
 	
 	if($query){
-		$json = array("status" => 1, "message" => "POST Successful");
+		$json = array("status" => 1, "message" => "PUT Successful");
 		$statusCode = 200;
 	}else{
 		$json = array("status" => 0, "error" => "Error, chore update not successful!");
