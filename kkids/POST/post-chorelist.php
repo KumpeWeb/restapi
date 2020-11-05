@@ -128,7 +128,7 @@ if($allowPost){
 		FROM
     		Apps_KKid.Chores__Today
 		WHERE 1=1
-			AND kid = $kidUsername
+			AND kid = '$kidUsername'
         	AND Day != 'Weekly'
         	AND Status = 'todo';;
 	";
