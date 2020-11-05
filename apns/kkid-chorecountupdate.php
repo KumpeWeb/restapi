@@ -40,7 +40,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/kkid.php');
 		$choreCountData = mysqli_query($conn, $sql2) or die(mysqli_error($conn));
 		$choreCountArray = mysqli_fetch_array($choreCountData);
 		$choreCount = $choreCountArray['Count'];
-	
+	echo $username." ".$choreCount."      ";
 		//work on this function
 		kkidPushNotification($username,"Chores",NULL,NULL,intval($choreCount),"",NULL);
 	}
