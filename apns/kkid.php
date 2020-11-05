@@ -14,7 +14,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 		if($userID == '0'){
 			$useridquery = '';
 		}else if (!is_numeric($userID)){
-			$useridquery = " AND userID = getUserID($userID)";
+			$useridquery = " HAVING userID = getUserID($userID)";
 		}else{
 			$useridquery = " AND userID = '$userID'";
 		}
@@ -25,7 +25,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
     			masterID
 			FROM
     			Apps_APNs.Subscriptions
-			HAVING 1=1
+			WHERE 1=1
 				AND appName = '$appName'
     			AND sectionName = '$Section' $useridquery;
 		";
