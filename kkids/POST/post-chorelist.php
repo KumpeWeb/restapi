@@ -1,5 +1,7 @@
 <?php
 
+include_once('/var/www/html/kumpeapps.com/api/apns/kkid.php');
+
 if($allowPost){
 	// Set Status to 202 (Accepted)
 	$statusCode = 202;
@@ -8,19 +10,19 @@ if($allowPost){
 	
 	if(isset($_REQUEST['kidUsername'])){
 		if($_REQUEST['kidUsername'] == ''){
-			$kidUsername = "'any'";
+			$kidUsername = "any";
 		}else{
-			$kidUsername = "'".mysqli_real_escape_string($conn,$_REQUEST['kidUsername'])."'";
+			$kidUsername = mysqli_real_escape_string($conn,$_REQUEST['kidUsername']);
 		}
 	}else{
-		$kidUsername = "'any'";
+		$kidUsername = "any";
 	}
 	
 	if(isset($_REQUEST['day'])){
 		if($_REQUEST['day'] == 'Today'){
 			$day = "CONVERT( DAYNAME(NOW()) USING LATIN1)";
 		}else{
-			$day = "'".mysqli_real_escape_string($conn,$_REQUEST['day'])."'";
+			$day = mysqli_real_escape_string($conn,$_REQUEST['day']);
 		}
 	}else{
 		$day = "'Weekly'";
@@ -43,9 +45,9 @@ if($allowPost){
 	}
 	
 	if(isset($_REQUEST['choreName'])){
-		$choreName = "'".mysqli_real_escape_string($conn,$_REQUEST['choreName'])."'";
+		$choreName = mysqli_real_escape_string($conn,$_REQUEST['choreName']);
 	}else{
-		$choreName = "'Chore Not Named'";
+		$choreName = "Chore Not Named";
 	}
 	
 	if(isset($_REQUEST['choreDescription'])){
@@ -116,9 +118,26 @@ if($allowPost){
 		INSERT INTO Apps_KKid.Chores__List
 			(`kid`,`masterID`,`day`,`status`,`choreName`,`choreDescription`,`choreNumber`,`nfcTag`,`blockDash`,`oneTime`,`extraAllowance`,`optional`,`reassignable`,`canSteal`,`notes`,`startDate`,`updatedBy`,`updated`)
 		VALUES
-			($kidUsername,$masterID,$day,$status,$choreName,$choreDescription,$choreNumber,$nfcTag,$blockDash,$oneTime,$extraAllowance,$optional,$reassignable,$canSteal,$notes,$startDate,'$updatedBy',now());";
+			('$kidUsername',$masterID,'$day',$status,'$choreName',$choreDescription,$choreNumber,$nfcTag,$blockDash,$oneTime,$extraAllowance,$optional,$reassignable,$canSteal,$notes,$startDate,'$updatedBy',now());";
     	
 	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+	
+	$sql2 = "
+		SELECT 
+    		COUNT(*) as Count
+		FROM
+    		Apps_KKid.Chores__Today
+		WHERE 1=1
+			AND kid = '$kidUsername'
+        	AND Day != 'Weekly'
+        	AND Status = 'todo';
+	";
+	$choreCountData = mysqli_query($conn, $sql2) or die(mysqli_error($conn));
+	$choreCountArray = mysqli_fetch_array($choreCountData);
+	$choreCount = $choreCountArray['Count'];
+	
+	// kkidPushNotification($kidUsername,"Chores",NULL,NULL,$choreCount,"",NULL);
+	kkidPushNotification($kidUsername,"Chores-New","$day New Chore Added","$choreName has been added to your chore list for $day.",intval($choreCount),"default",NULL);
 	
 	if($query){
 		$json = array("status" => 1, "message" => "POST Successful");

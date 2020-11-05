@@ -96,6 +96,8 @@ function build_push_to_apns($Title, $Body, $Badge, $Sound, $Token, $AppID, $Acti
 	if($Title != "" && $Title != NULL){
 		$arSendData['aps']['alert']['title'] = sprintf($Title); // Notification title
 		$arSendData['aps']['alert']['body'] = sprintf($Body); // body text
+	}else{
+		$isBackgroundNotification = true;
 	}
 	
 		$arSendData['aps']['sound'] = sprintf($Sound); // sound

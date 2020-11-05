@@ -1,5 +1,7 @@
 <?php
 
+include_once('/var/www/html/kumpeapps.com/api/apns/kkid.php');
+
 if($allowPut){
 	// Set Status to 202 (Accepted)
 	$statusCode = 202;
@@ -8,9 +10,11 @@ if($allowPut){
 	$updatedBy = $authenticatedUser;
 	
 	if(isset($_REQUEST['kidUsername'])){
-		$kidUsername = "AND kid = '".$_REQUEST['kidUsername']."'";
+		$kidUsername = $_REQUEST['kidUsername'];
+		$kidUsernameWhere = "AND kid = '$kidUsername'";
 	}else{
-		$kidUsername = '';
+		$kidUsernameWhere = '';
+		$kidUsername = NULL;
 	}
 	
 	if(isset($_REQUEST['nfcTag'])){
@@ -79,12 +83,33 @@ if($allowPut){
     	WHERE 1=1
     		AND masterID='$masterID'
     		AND idChoreList='$idChoreList'
-    		$kidUsername;";
+    		$kidUsernameWhere;";
     		
 	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 	
+	if(($kidUsername != NULL)) {
+
+		$sql2 = "
+			SELECT 
+    			COUNT(*) as Count
+			FROM
+    			Apps_KKid.Chores__Today
+			WHERE 1=1
+				AND kid = '$kidUsername'
+        		AND Day != 'Weekly'
+        		AND Status = 'todo';
+		";
+
+		$choreCountData = mysqli_query($conn, $sql2) or die(mysqli_error($conn));
+		$choreCountArray = mysqli_fetch_array($choreCountData);
+		$choreCount = $choreCountArray['Count'];
+	
+		//work on this function
+		kkidPushNotification($kidUsername,"Chores",NULL,NULL,intval($choreCount),"",NULL);
+
+	}
 	if($query){
-		$json = array("status" => 1, "message" => "POST Successful");
+		$json = array("status" => 1, "message" => "PUT Successful");
 		$statusCode = 200;
 	}else{
 		$json = array("status" => 0, "error" => "Error, chore update not successful!");
