@@ -1,6 +1,7 @@
 <?php
 
 include_once('/var/www/html/kumpeapps.com/api/apns/kkid.php');
+include_once('/var/www/html/kumpeapps.com/api/sqlConfig.php');
 
 $userID = $_REQUEST['userID'];
 $Section = $_REQUEST['Section'];
