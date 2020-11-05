@@ -105,7 +105,7 @@ if($allowPut){
 		$choreCount = $choreCountArray['Count'];
 	
 		//work on this function
-		kkidPushNotification($kidUsername,"Chores",NULL,NULL,$choreCount,"default",NULL);
+		kkidPushNotification($kidUsername,"Chores",NULL,NULL,intval($choreCount),"",NULL);
 
 	}
 	if($query){
