@@ -8,7 +8,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 
 		if($userID == '0'){
 			$useridquery = '';
-		}else if !is_numeric($userID){
+		}else if (!is_numeric($userID)){
 			$useridquery = " AND userID = getUserID('$userID')";
 		}else{
 			$useridquery = " AND userID = '$userID'";
