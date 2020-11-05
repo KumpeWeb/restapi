@@ -123,10 +123,18 @@ if($allowPost){
 	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 	
 	$sql2 = "
-		CALL Apps_KKid.getChoresCount('$kidUsername');
+		SELECT 
+    		COUNT(*) as Count
+		FROM
+    		Apps_KKid.Chores__Today
+		WHERE 1=1
+			AND kid = $kidUsername
+        	AND Day != 'Weekly'
+        	AND Status = 'todo';;
 	";
-	$choreCount = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-	echo $choreCount;
+	$choreCountData = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+	$choreCountArray = mysqli_fetch_array($choreCountData);
+	$choreCount = $choreCountArray['Count'];
 	
 	// kkidPushNotification($kidUsername,"Chores",NULL,NULL,$choreCount,"",NULL);
 	kkidPushNotification($kidUsername,"Chores-New","$day New Chore Added","$choreName has been added to your chore list for $day.",$choreCount,"default",NULL);
