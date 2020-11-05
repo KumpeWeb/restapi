@@ -14,7 +14,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 		if($userID == '0'){
 			$useridquery = '';
 		}else if (!is_numeric($userID)){
-			$getUserID = "SELECT getUserID($userID) as userID;";
+			$getUserID = "SELECT getUserID('$userID') as userID;";
 			$userID1 = mysqli_query($conn, $getUserID) or die("Couldn't execute query. ". mysqli_error($conn)); 
 			$userIDarray = mysqli_fetch_array($userID1);
 			$userID = $userIDarray['userID'];
