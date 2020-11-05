@@ -16,7 +16,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 		}else if (!is_numeric($userID)){
 			$getUserID = "SELECT getUserID($userID);";
 			$userID1 = mysqli_query($conn, $getUserID) or die("Couldn't execute query. ". mysqli_error($conn)); 
-			$useridquery = " AND userID = '$userID'";
+			$useridquery = " AND userID = '$userID1'";
 		}else{
 			$useridquery = " AND userID = '$userID'";
 		}
