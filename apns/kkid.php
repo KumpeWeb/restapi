@@ -20,7 +20,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 		}
 		
 		$UserData1 = "
-			CALL getUsersBySubscription('$userID','$appName','$Section');
+			CALL getUsersBySubscription($userID,'$appName','$Section');
 		";
 		$UserQuery1 = mysqli_query($conn, $UserData1) or die("Couldn't execute query. ". mysqli_error($conn)); 
 		$Users = array();
