@@ -4,7 +4,7 @@ include_once('/var/www/html/kumpeapps.com/api/sqlConfig.php');
 include_once('/var/www/html/kumpeapps.com/api/apns/kkid.php');
 
 $conn2 = mysqli_connect($sqlHost, $sqlUser, $sqlPass);
-		mysqli_select_db($conn2, "Apps_APNs");
+		mysqli_select_db($conn2, "Apps_KKid");
 		
 	$UserSQL = "
 			SELECT 
