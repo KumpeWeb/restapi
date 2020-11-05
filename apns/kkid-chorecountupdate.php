@@ -30,7 +30,7 @@ $conn2 = mysqli_connect($sqlHost, $sqlUser, $sqlPass);
 		$username = $UserArray['username'];
 		$choreCount = $UserArray['choreCount'];
 		//work on this function
-		kkidPushNotificationAsync($username,"Chores",NULL,NULL,intval($choreCount),"",NULL);
+		kkidPushNotificationAsync($username,"Chores","test2","test body",intval($choreCount),"default",NULL);
 	}
 
 ?>

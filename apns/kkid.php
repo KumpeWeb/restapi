@@ -41,7 +41,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 		while($User = mysqli_fetch_array($UserQuery1))
     		$Users[] = $User;
 		foreach($Users as $UserArray){ 
-		error_log($Title." ".$Body." ".$Sound." ".$UserArray['userID']." ".$appName." ".$Action);
+		error_log($Title." ".$Body." ".$Badge." ".$Sound." ".$UserArray['userID']." ".$appName." ".$Action);
 			send_apns($Title, $Body, $Badge, $Sound, $UserArray['userID'], $appName, $Action);
 		}
 	}
