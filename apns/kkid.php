@@ -32,6 +32,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 				AND appName = '$appName'
     			AND sectionName = '$Section' $useridquery;
 		";
+		echo $UserData1;
 		$UserQuery1 = mysqli_query($conn, $UserData1) or die("Couldn't execute query. ". mysqli_error($conn)); 
 		$Users = array();
 
@@ -39,7 +40,6 @@ include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
 		while($User = mysqli_fetch_array($UserQuery1))
     		$Users[] = $User;
 		foreach($Users as $UserArray){ 
-		echo $UserArray['userID'];
 			send_apns($Title, $Body, $Badge, $Sound, $UserArray['userID'], $appName, $Action);
 		}
 	}
