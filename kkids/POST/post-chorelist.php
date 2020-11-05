@@ -135,11 +135,9 @@ if($allowPost){
 	$choreCountData = mysqli_query($conn, $sql2) or die(mysqli_error($conn));
 	$choreCountArray = mysqli_fetch_array($choreCountData);
 	$choreCount = $choreCountArray['Count'];
-	echo $sql2;
-	echo $choreCount;
 	
 	// kkidPushNotification($kidUsername,"Chores",NULL,NULL,$choreCount,"",NULL);
-	kkidPushNotification($kidUsername,"Chores-New","$day New Chore Added","$choreName has been added to your chore list for $day.",$choreCount,"default",NULL);
+	kkidPushNotification($kidUsername,"Chores-New","$day New Chore Added","$choreName has been added to your chore list for $day.",intval($coreCount),"default",NULL);
 	
 	if($query){
 		$json = array("status" => 1, "message" => "POST Successful");
