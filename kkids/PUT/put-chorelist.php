@@ -99,7 +99,8 @@ if($allowPut){
 	$choreCountArray = mysqli_fetch_array($choreCountData);
 	$choreCount = $choreCountArray['Count'];
 	
-	kkidPushNotification($kidUsername,"Chores","NULL","NULL",$choreCount,"",NULL);
+	//work on this function
+	kkidPushNotification($kidUsername,"Chores","test","test",$choreCount,"default",NULL);
 	
 	if($query){
 		$json = array("status" => 1, "message" => "POST Successful");
