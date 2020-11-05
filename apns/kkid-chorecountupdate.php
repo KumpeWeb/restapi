@@ -8,14 +8,7 @@ include_once('/var/www/html/kumpeapps.com/api/apns/kkid.php');
     			userID,
     			masterID,
     			username,
-    			(	SELECT 
-    					COUNT(*) as Count
-					FROM
-    					Apps_KKid.Chores__Today
-					WHERE 1=1
-						AND kid = Apps_KKid.User_Permissions.username
-        				AND Day != 'Weekly'
-        				AND Status = 'todo') AS choreCount
+    			9 AS choreCount
 			FROM
     			Apps_KKid.User_Permissions
 			WHERE 1=1
