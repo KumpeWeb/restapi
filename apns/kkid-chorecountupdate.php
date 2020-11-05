@@ -18,9 +18,10 @@ include_once('/var/www/html/kumpeapps.com/api/apns/kkid.php');
 	";  
 	$UserQuery = mysqli_query($conn, $UserSQL) or die("Couldn't execute query. ". mysqli_error($conn)); 
 	$Users = array();
+	$UserSqlArray = mysqli_fetch_array($UserQuery)
 
 	//Run script for each user
-	while($User = mysqli_fetch_array($UserQuery))
+	while($User = $UserSqlArray)
     	$Users[] = $User;
 	foreach($Users as $UserArray){ 
 		//Set dbEXT for User
