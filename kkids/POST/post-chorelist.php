@@ -118,7 +118,7 @@ if($allowPost){
 		INSERT INTO Apps_KKid.Chores__List
 			(`kid`,`masterID`,`day`,`status`,`choreName`,`choreDescription`,`choreNumber`,`nfcTag`,`blockDash`,`oneTime`,`extraAllowance`,`optional`,`reassignable`,`canSteal`,`notes`,`startDate`,`updatedBy`,`updated`)
 		VALUES
-			('$kidUsername',$masterID,'$day',$status,'$choreName',$choreDescription,$choreNumber,$nfcTag,$blockDash,$oneTime,$extraAllowance,$optional,$reassignable,$canSteal,$notes,$startDate,'$updatedBy',now());";
+			('$kidUsername',$masterID,$day,$status,'$choreName',$choreDescription,$choreNumber,$nfcTag,$blockDash,$oneTime,$extraAllowance,$optional,$reassignable,$canSteal,$notes,$startDate,'$updatedBy',now());";
     	
 	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 	
@@ -135,9 +135,10 @@ if($allowPost){
 	$choreCountData = mysqli_query($conn, $sql2) or die(mysqli_error($conn));
 	$choreCountArray = mysqli_fetch_array($choreCountData);
 	$choreCount = $choreCountArray['Count'];
+	$dayName = $_REQUEST['day'];
 	
 	// kkidPushNotification($kidUsername,"Chores",NULL,NULL,$choreCount,"",NULL);
-	kkidPushNotification($kidUsername,"Chores-New","$day New Chore Added","$choreName has been added to your chore list for $day.",intval($choreCount),"default",NULL);
+	kkidPushNotification($kidUsername,"Chores-New","$dayName Chore Added","$choreName",intval($choreCount),"default",NULL);
 	
 	if($query){
 		$json = array("status" => 1, "message" => "POST Successful");
