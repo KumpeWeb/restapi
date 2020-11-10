@@ -22,7 +22,7 @@ if($allowPost){
 		if($_REQUEST['day'] == 'Today'){
 			$day = "CONVERT( DAYNAME(NOW()) USING LATIN1)";
 		}else{
-			$day = mysqli_real_escape_string($conn,$_REQUEST['day']);
+			$day = "'".mysqli_real_escape_string($conn,$_REQUEST['day'])."'";
 		}
 	}else{
 		$day = "'Weekly'";
