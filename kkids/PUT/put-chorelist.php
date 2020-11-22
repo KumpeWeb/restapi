@@ -11,7 +11,7 @@ if($allowPut){
 	
 	if(isset($_REQUEST['kidUsername'])){
 		$kidUsername = $_REQUEST['kidUsername'];
-		$kidUsernameWhere = "AND kid = '$kidUsername'";
+		$kidUsernameWhere = "AND (kid = '$kidUsername' OR kid = 'any')";
 	}else{
 		$kidUsernameWhere = '';
 		$kidUsername = NULL;
