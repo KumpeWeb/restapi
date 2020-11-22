@@ -159,7 +159,7 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token){
 	if(empty(curl_error($ch))){
     // echo "empty curl error \n";
 	}else{
-		echo curl_error($ch);
+		// echo curl_error($ch);
 	}
 
 	// Logging
@@ -173,7 +173,7 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token){
   curl_close($ch);
   
   	if(intval($httpcode) == 410){ 
-  		echo("Invalid Token");
+  		// echo("Invalid Token");
   
 		return TRUE;
 	}
