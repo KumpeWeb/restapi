@@ -153,6 +153,7 @@ function push_to_apns($arParam, &$ar_msg, $arSendData, $Token){
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $sendDataJson);
 	curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_2_0);
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $ar_request_head);
+	curl_setopt(CURLOPT_RETURNTRANSFER, true);
 	$response = curl_exec($ch);
 	$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
