@@ -72,6 +72,7 @@ if($allowGet){
     		isMaster,
     		enableBehaviorChart,
     		enableNoAds,
+    		enableTmdb,
     		WeeklyAllowance,
     		emoji
 		FROM
@@ -108,6 +109,7 @@ if($allowGet){
 					'isMaster' => $boolOutput($isMaster),
 					'enableBehaviorChart' => $boolOutput($enableBehaviorChart),
 					'enableNoAds' =>	$boolOutput($enableNoAds),
+					'enableTmdb' =>	$boolOutput($enableTmdb),
 					'weeklyAllowance' => floatval($WeeklyAllowance),
 					'emoji' => $emoji);
 		}
