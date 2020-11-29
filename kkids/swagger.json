@@ -468,6 +468,12 @@
             "name": "enableAdmin",
             "description": "set status of isAdmin",
             "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "enableTmdb",
+            "description": "set status of enableTmdb (movie and tv search)",
+            "type": "boolean"
           }
         ],
         "responses": {
@@ -1406,6 +1412,14 @@
         "enableBehaviorChart": {
           "type": "boolean",
           "example": false
+        },
+        "enableNoAds": {
+          "type": "boolean",
+          "example": false
+        },
+        "enableTmdb": {
+          "type": "boolean",
+          "example": true
         },
         "weeklyAllowance": {
           "type": "integer",
