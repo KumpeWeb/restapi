@@ -73,6 +73,7 @@ if($allowGet){
     		enableBehaviorChart,
     		enableNoAds,
     		enableTmdb,
+    		enableObjectDetection,
     		WeeklyAllowance,
     		emoji
 		FROM
@@ -110,6 +111,7 @@ if($allowGet){
 					'enableBehaviorChart' => $boolOutput($enableBehaviorChart),
 					'enableNoAds' =>	$boolOutput($enableNoAds),
 					'enableTmdb' =>	$boolOutput($enableTmdb),
+					'enableObjectDetection' =>	$boolOutput($enableObjectDetection),
 					'weeklyAllowance' => floatval($WeeklyAllowance),
 					'emoji' => $emoji);
 		}
