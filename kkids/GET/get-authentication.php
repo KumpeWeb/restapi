@@ -30,6 +30,9 @@ if($allowGet){
     		isLocked,
     		isMaster,
     		enableBehaviorChart,
+    		enableTmdb,
+    		enableObjectDetection,
+    		enableNoAds,
     		WeeklyAllowance,
     		emoji
 		FROM
@@ -61,6 +64,9 @@ if($allowGet){
 				$result['isLocked'] = boolval($isLocked);
 				$result['isMaster'] = boolval($isMaster);
 				$result['enableBehaviorChart'] = boolval(0);
+				$result['enableTmdb'] = boolval($enableTmdb);
+				$result['enableNoAds'] = boolval($enableNoAds);
+				$result['enableObjectDetection'] = boolval($enableObjectDetection);
 				$result['weeklyAllowance'] = floatval($WeeklyAllowance);
 				$result['emoji'] = $emoji;
 		
