@@ -474,6 +474,12 @@
             "name": "enableTmdb",
             "description": "set status of enableTmdb (movie and tv search)",
             "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "enableObjectDetection",
+            "description": "set status of enableObjectDetection",
+            "type": "boolean"
           }
         ],
         "responses": {
@@ -891,6 +897,18 @@
             "in": "query",
             "name": "notes",
             "description": "notes added to chore (visable only on reports, kids do not see this note, this is mostly just for the developer)",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "requireObjectDetection",
+            "description": "require use of camera to detect object detection tag order to check off chore",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "objectDetectionTag",
+            "description": "tag for object detection to search for (required if requireObjectDetection is true)",
             "type": "string"
           }
         ],
@@ -1421,6 +1439,10 @@
           "type": "boolean",
           "example": true
         },
+        "enableObjectDetection": {
+          "type": "boolean",
+          "example": false
+        },
         "weeklyAllowance": {
           "type": "integer",
           "example": 5
@@ -1528,6 +1550,14 @@
         "altitude": {
           "type": "integer",
           "example": 136.54
+        },
+        "isCalendar": {
+          "type": "boolean",
+          "example": false
+        },
+        "requireObjectDetection": {
+          "type": "string",
+          "example": "bed"
         }
       }
     },

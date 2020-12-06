@@ -113,12 +113,24 @@ if($allowPost){
 	}else{
 		$notes = "null";
 	}
+
+	if(isset($_REQUEST['requireObjectDetection'])) {
+		$requireObjectDetection = "0";
+	} else {
+		$requireObjectDetection = "'".mysqli_real_escape_string($conn,$_REQUEST['requireObjectDetection'])."'";
+	}
+
+	if(isset($_REQUEST['objectDetectionTag'])) {
+		$objectDetectionTag = "'none'";
+	} else {
+		$objectDetectionTag = "'".mysqli_real_escape_string($conn,$_REQUEST['objectDetectionTag'])."'";
+	}
 	
 	$sql = "
 		INSERT INTO Apps_KKid.Chores__List
-			(`kid`,`masterID`,`day`,`status`,`choreName`,`choreDescription`,`choreNumber`,`nfcTag`,`blockDash`,`oneTime`,`extraAllowance`,`optional`,`reassignable`,`canSteal`,`notes`,`startDate`,`updatedBy`,`updated`)
+			(`kid`,`masterID`,`day`,`status`,`choreName`,`choreDescription`,`choreNumber`,`nfcTag`,`blockDash`,`oneTime`,`extraAllowance`,`optional`,`reassignable`,`canSteal`,`notes`,`startDate`,`updatedBy`,`updated`,`requireObjectDetection`,`objectDetectionTag`)
 		VALUES
-			('$kidUsername',$masterID,$day,$status,'$choreName',$choreDescription,$choreNumber,$nfcTag,$blockDash,$oneTime,$extraAllowance,$optional,$reassignable,$canSteal,$notes,$startDate,'$updatedBy',now());";
+			('$kidUsername',$masterID,$day,$status,'$choreName',$choreDescription,$choreNumber,$nfcTag,$blockDash,$oneTime,$extraAllowance,$optional,$reassignable,$canSteal,$notes,$startDate,'$updatedBy',now(),$requireObjectDetection,$objectDetectionTag);";
     	
 	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 	

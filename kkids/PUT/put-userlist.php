@@ -116,6 +116,32 @@ curl_exec($ch);
 curl_close($ch);
 }
 
+if(isset($_REQUEST['enableObjectDetection']) && $_REQUEST['enableObjectDetection'] == 'true'){
+//Add Allowance Access
+$ch = curl_init();
+$url ="https://www.kumpeapps.com/api/access";
+$vars = array(
+        '_key'          =>      $apiKey,
+        'user_id'       =>      $kidUserID,
+        'product_id'    =>      162,
+        'begin_date'    =>      date('Y-m-d'), // Today;
+        'expire_date'   =>      '2037-12-31', // Lifetime
+        'comment'		=>		"Added via API by authenticated user $authenticatedUser"
+);
+//set the url, number of POST vars, POST data
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($vars));
+curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-type: application/x-www-form-urlencoded"));
+//execute post
+curl_exec($ch);
+
+//close connection
+curl_close($ch);
+}
+
+
 if(isset($_REQUEST['enableAdmin']) && $_REQUEST['enableAdmin'] == 'true'){
 //Add Admin Access
 $ch = curl_init();
@@ -219,6 +245,32 @@ $sql = "
 	WHERE 1=1
 		AND user_id = $kidUserID
     	AND product_id = 161
+
+";
+$get_data_query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+		if(mysqli_num_rows($get_data_query)!=0){
+		$result = array();
+		
+		while($r = mysqli_fetch_array($get_data_query)){
+		
+			expireAccess($r['access_id'],$apiKey,$authenticatedUser);
+		
+		}
+
+}}
+
+
+if(isset($_REQUEST['enableObjectDetection']) && $_REQUEST['enableObjectDetection'] == 'false'){
+
+$sql = "
+	SELECT 
+    	access_id,
+    	expire_date
+	FROM
+    	Core_KumpeApps.am_access
+	WHERE 1=1
+		AND user_id = $kidUserID
+    	AND product_id = 162
 
 ";
 $get_data_query = mysqli_query($conn, $sql) or die(mysqli_error($conn));

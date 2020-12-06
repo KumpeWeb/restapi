@@ -76,7 +76,9 @@ if($allowGet){
     		latitude,
     		longitude,
     		altitude,
-    		isCalendar
+    		isCalendar,
+    		requireObjectDetection,
+    		objectDetectionTag
 		FROM
     		Apps_KKid.Chores__List
     	WHERE 1=1
@@ -105,6 +107,7 @@ if($allowGet){
     		isLocked,
     		isMaster,
     		enableBehaviorChart,
+    		enableObjectDetection,
     		WeeklyAllowance,
     		emoji
 		FROM
@@ -154,7 +157,9 @@ if($allowGet){
 					'latitude' => floatval($latitude),
 					'longitude' => floatval($longitude),
 					'altitude' => floatval($altitude),
-					'isCalendar' => $boolOutput($isCalendar));
+					'isCalendar' => $boolOutput($isCalendar),
+					'requireObjectDetection' => $boolOutput($requireObjectDetection),
+					'objectDetectionTag' => $boolOutput($objectDetectionTag));
 			}
 			
 			
@@ -178,6 +183,7 @@ if($allowGet){
 				'isMaster' => $boolOutput($isMaster),
 				'enableBehaviorChart' => $boolOutput(0),
 				'weeklyAllowance' => floatval($WeeklyAllowance),
+				'enableObjectDetection' => floatval($enableObjectDetection),
 				'emoji' => $emoji,
 				'chores' => $result);
 		}
@@ -224,7 +230,9 @@ if($allowGet){
 					'latitude' => floatval($latitude),
 					'longitude' => floatval($longitude),
 					'altitude' => floatval($altitude),
-					'isCalendar' => $boolOutput($isCalendar));
+					'isCalendar' => $boolOutput($isCalendar),
+					'requireObjectDetection' => $boolOutput($requireObjectDetection),
+					'objectDetectionTag' => $boolOutput($objectDetectionTag));
 			}
 			if(isset($_REQUEST['outputCase']) && $_REQUEST['outputCase'] == "snake"){
 			
