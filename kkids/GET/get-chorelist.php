@@ -159,7 +159,7 @@ if($allowGet){
 					'altitude' => floatval($altitude),
 					'isCalendar' => $boolOutput($isCalendar),
 					'requireObjectDetection' => $boolOutput($requireObjectDetection),
-					'objectDetectionTag' => $boolOutput($objectDetectionTag));
+					'objectDetectionTag' => $objectDetectionTag);
 			}
 			
 			
@@ -232,7 +232,7 @@ if($allowGet){
 					'altitude' => floatval($altitude),
 					'isCalendar' => $boolOutput($isCalendar),
 					'requireObjectDetection' => $boolOutput($requireObjectDetection),
-					'objectDetectionTag' => $boolOutput($objectDetectionTag));
+					'objectDetectionTag' => $objectDetectionTag);
 			}
 			if(isset($_REQUEST['outputCase']) && $_REQUEST['outputCase'] == "snake"){
 			
