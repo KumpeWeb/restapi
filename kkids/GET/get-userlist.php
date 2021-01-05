@@ -75,7 +75,8 @@ if($allowGet){
     		enableTmdb,
     		enableObjectDetection,
     		WeeklyAllowance,
-    		emoji
+    		emoji,
+    		tmdbKey
 		FROM
     		Apps_KKid.UserList
     	WHERE 1=1
@@ -113,7 +114,8 @@ if($allowGet){
 					'enableTmdb' =>	$boolOutput($enableTmdb),
 					'enableObjectDetection' =>	$boolOutput($enableObjectDetection),
 					'weeklyAllowance' => floatval($WeeklyAllowance),
-					'emoji' => $emoji);
+					'emoji' => $emoji),
+					'tmdbKey' => $tmdbKey);
 		}
 		
 		if(isset($_REQUEST['outputCase']) && $_REQUEST['outputCase'] == "snake"){
