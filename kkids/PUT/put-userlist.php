@@ -185,12 +185,10 @@ if(isset($_REQUEST['tmdbKey'])){
 //Update User's Emoji
 	$tmdbKey = $_REQUEST['tmdbKey'];
 	$sql = "
-		UPDATE Apps_KKid.Parameters
-		SET value='$tmdbKey'
-    	WHERE 1=1
-    		AND masterID='$masterID'
-    		AND userID='$kidUserID'
-    		AND parameter = 'tmdbKey';";
+		REPLACE INTO Apps_KKid.Parameters
+			(userID, masterID, parameter, value)
+		VALUES
+			('$kidUserID', '$masterID', 'tmdbKey', '$tmdbKey');";
     		
 	mysqli_query($conn, $sql) or die(mysqli_error($conn));
 //
