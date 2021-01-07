@@ -181,6 +181,19 @@ if(isset($_REQUEST['emoji'])){
 //
 }
 
+if(isset($_REQUEST['tmdbKey'])){
+//Update User's Emoji
+	$tmdbKey = $_REQUEST['tmdbKey'];
+	$sql = "
+		REPLACE INTO Apps_KKid.Parameters
+			(userID, masterID, parameter, value)
+		VALUES
+			('$kidUserID', '$masterID', 'tmdbKey', '$tmdbKey');";
+    		
+	mysqli_query($conn, $sql) or die(mysqli_error($conn));
+//
+}
+
 
 if(isset($_REQUEST['enableChores']) && $_REQUEST['enableChores'] == 'false'){
 
