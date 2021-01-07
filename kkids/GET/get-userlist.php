@@ -114,7 +114,7 @@ if($allowGet){
 					'enableTmdb' =>	$boolOutput($enableTmdb),
 					'enableObjectDetection' =>	$boolOutput($enableObjectDetection),
 					'weeklyAllowance' => floatval($WeeklyAllowance),
-					'emoji' => $emoji),
+					'emoji' => $emoji,
 					'tmdbKey' => $tmdbKey);
 		}
 		
