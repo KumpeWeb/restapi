@@ -77,13 +77,19 @@ if($allowPut){
 		$altitude = '';
 	}
 	
+	if(isset($_REQUEST['where'])){
+		$where = " AND ".$_REQUEST['where']."";
+	}else{
+		$where = " AND idChoreList='$idChoreList'";
+	}
+	
 	$sql = "
 		UPDATE Apps_KKid.Chores__List
 		SET updatedBy='$updatedBy', updated=now() $nfcTag $status $stolen $stolenBy $notes $latitude $longitude $altitude
     	WHERE 1=1
     		AND masterID='$masterID'
-    		AND idChoreList='$idChoreList'
-    		$kidUsernameWhere;";
+    		$kidUsernameWhere
+    		$where;";
     		
 	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 	
