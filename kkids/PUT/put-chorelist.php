@@ -77,6 +77,13 @@ if($allowPut){
 		$altitude = '';
 	}
 	
+	if(isset($_REQUEST['where'])){
+		$where = " AND ".$_REQUEST['where']."";
+	}else{
+		$where = "AND idChoreList='$idChoreList'
+    		$kidUsernameWhere";
+	}
+	
 	$sql = "
 		UPDATE Apps_KKid.Chores__List
 		SET updatedBy='$updatedBy', updated=now() $nfcTag $status $stolen $stolenBy $notes $latitude $longitude $altitude
