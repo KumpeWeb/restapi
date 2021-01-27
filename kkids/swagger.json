@@ -749,6 +749,12 @@
             "name": "altitude",
             "description": "GPS altitude of where the chore was marked",
             "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "updatedByAutomation",
+            "description": "true if updated via API by automation system",
+            "type": "boolean"
           }
         ],
         "responses": {
@@ -909,6 +915,18 @@
             "in": "query",
             "name": "objectDetectionTag",
             "description": "tag for object detection to search for (required if requireObjectDetection is true)",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "updatedByAutomation",
+            "description": "true if chore updated via API from an Automation System",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "aiIcon",
+            "description": "Notes if AI Icons should be used (n for no, y for yes, e for yes- error)",
             "type": "string"
           }
         ],
@@ -1558,6 +1576,10 @@
         "requireObjectDetection": {
           "type": "string",
           "example": "bed"
+        },
+        "aiIcon": {
+          "type": "string",
+          "example": "n"
         }
       }
     },
