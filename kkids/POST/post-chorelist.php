@@ -127,9 +127,9 @@ if($allowPost){
 	}
 	
 	if(isset($_REQUEST['updatedByAutomation'])){
-		$updatedByAutomation = "'".mysqli_real_escape_string($conn,$_REQUEST['updatedByAutomation'])."'";
+		$updatedByAutomation = "".mysqli_real_escape_string($conn,$_REQUEST['updatedByAutomation'])."";
 	}else{
-		$updatedByAutomation = "'0'";
+		$updatedByAutomation = "0";
 	}
 	
 	if(isset($_REQUEST['aiIcon'])){
