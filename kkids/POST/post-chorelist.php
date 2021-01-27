@@ -127,13 +127,13 @@ if($allowPost){
 	}
 	
 	if(isset($_REQUEST['updatedByAutomation'])){
-		$updatedByAutomation = "'".$_REQUEST['updatedByAutomation']."'";
+		$updatedByAutomation = "'".mysqli_real_escape_string($conn,$_REQUEST['updatedByAutomation'])."'";
 	}else{
 		$updatedByAutomation = "'0'";
 	}
 	
 	if(isset($_REQUEST['aiIcon'])){
-		$aiIcon = "'".$_REQUEST['aiIcon']."'";
+		$aiIcon = "'".mysqli_real_escape_string($conn,$_REQUEST['aiIcon'])."'";
 	}else{
 		$aiIcon = "'n'";
 	}
