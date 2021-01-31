@@ -79,7 +79,9 @@ if($allowGet){
     		isCalendar,
     		requireObjectDetection,
     		objectDetectionTag,
-    		CASE WHEN updatedByAutomation = 1 THEN 'e' ELSE aiIcon END AS aiIcon
+    		CASE WHEN updatedByAutomation = 1 AND status = 'check' THEN 'c'
+    			 WHEN status = 'check' THEN 'n'
+    			 WHEN updatedByAutomation = 1 AND status = 'todo' THEN 'e' ELSE aiIcon END AS aiIcon
 		FROM
     		Apps_KKid.Chores__List
     	WHERE 1=1
