@@ -86,7 +86,7 @@ if($allowPut){
 	if(isset($_REQUEST['updatedByAutomation'])){
 		$updatedByAutomation = ", updatedByAutomation=".$_REQUEST['updatedByAutomation']."";
 	}else{
-		$updatedByAutomation = "";
+		$updatedByAutomation = ", updatedByAutomation=0";
 	}
 	
 	$sql = "
