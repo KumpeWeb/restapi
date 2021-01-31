@@ -78,7 +78,8 @@ if($allowGet){
     		altitude,
     		isCalendar,
     		requireObjectDetection,
-    		objectDetectionTag
+    		objectDetectionTag,
+    		CASE WHEN updatedByAutomation = 1 THEN 'e' ELSE aiIcon END AS aiIcon
 		FROM
     		Apps_KKid.Chores__List
     	WHERE 1=1
@@ -159,7 +160,8 @@ if($allowGet){
 					'altitude' => floatval($altitude),
 					'isCalendar' => $boolOutput($isCalendar),
 					'requireObjectDetection' => $boolOutput($requireObjectDetection),
-					'objectDetectionTag' => $objectDetectionTag);
+					'objectDetectionTag' => $objectDetectionTag,
+					'aiIcon' => $aiIcon);
 			}
 			
 			
@@ -232,7 +234,8 @@ if($allowGet){
 					'altitude' => floatval($altitude),
 					'isCalendar' => $boolOutput($isCalendar),
 					'requireObjectDetection' => $boolOutput($requireObjectDetection),
-					'objectDetectionTag' => $objectDetectionTag);
+					'objectDetectionTag' => $objectDetectionTag,
+					'aiIcon' => $aiIcon);
 			}
 			if(isset($_REQUEST['outputCase']) && $_REQUEST['outputCase'] == "snake"){
 			

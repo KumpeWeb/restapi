@@ -83,9 +83,15 @@ if($allowPut){
 		$where = " AND idChoreList='$idChoreList'";
 	}
 	
+	if(isset($_REQUEST['updatedByAutomation'])){
+		$updatedByAutomation = ", updatedByAutomation=".$_REQUEST['updatedByAutomation']."";
+	}else{
+		$updatedByAutomation = "";
+	}
+	
 	$sql = "
 		UPDATE Apps_KKid.Chores__List
-		SET updatedBy='$updatedBy', updated=now() $nfcTag $status $stolen $stolenBy $notes $latitude $longitude $altitude
+		SET updatedBy='$updatedBy', updated=now() $nfcTag $status $stolen $stolenBy $notes $latitude $longitude $altitude $updatedByAutomation
     	WHERE 1=1
     		AND masterID='$masterID'
     		$kidUsernameWhere
