@@ -89,9 +89,15 @@ if($allowPut){
 		$updatedByAutomation = ", updatedByAutomation=0";
 	}
 	
+	if(isset($_REQUEST['apiIcon'])){
+		$updatedByAutomation = ", apiIcon=".$_REQUEST['apiIcon']."";
+	}else{
+		$updatedByAutomation = "";
+	}
+	
 	$sql = "
 		UPDATE Apps_KKid.Chores__List
-		SET updatedBy='$updatedBy', updated=now() $nfcTag $status $stolen $stolenBy $notes $latitude $longitude $altitude $updatedByAutomation
+		SET updatedBy='$updatedBy', updated=now() $nfcTag $status $stolen $stolenBy $notes $latitude $longitude $altitude $updatedByAutomation $apiIcon
     	WHERE 1=1
     		AND masterID='$masterID'
     		$kidUsernameWhere
