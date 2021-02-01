@@ -95,12 +95,23 @@ if($allowPut){
 		$updatedByAutomation = "";
 	}
 	
+	if(isset($_REQUEST['day'])){
+		if($_REQUEST['day'] == 'Today'){
+			$day = " AND day=CONVERT( DAYNAME(NOW()) USING LATIN1)";
+		}else{
+			$day = " AND day='".mysqli_real_escape_string($conn,$_REQUEST['day'])."'";
+		}
+	}else{
+		$day = "";
+	}
+	
 	$sql = "
 		UPDATE Apps_KKid.Chores__List
 		SET updatedBy='$updatedBy', updated=now() $nfcTag $status $stolen $stolenBy $notes $latitude $longitude $altitude $updatedByAutomation $apiIcon
     	WHERE 1=1
     		AND masterID='$masterID'
     		$kidUsernameWhere
+    		$day
     		$where;";
     		
 	$query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
