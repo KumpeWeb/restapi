@@ -90,9 +90,9 @@ if($allowPut){
 	}
 	
 	if(isset($_REQUEST['apiIcon'])){
-		$updatedByAutomation = ", apiIcon='".$_REQUEST['apiIcon']."'";
+		$apiIcon = ", apiIcon='".$_REQUEST['apiIcon']."'";
 	}else{
-		$updatedByAutomation = "";
+		$apiIcon = "";
 	}
 	
 	if(isset($_REQUEST['day'])){
