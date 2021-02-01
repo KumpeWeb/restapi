@@ -90,7 +90,7 @@ if($allowPut){
 	}
 	
 	if(isset($_REQUEST['apiIcon'])){
-		$updatedByAutomation = ", apiIcon=".$_REQUEST['apiIcon']."";
+		$updatedByAutomation = ", apiIcon='".$_REQUEST['apiIcon']."'";
 	}else{
 		$updatedByAutomation = "";
 	}
