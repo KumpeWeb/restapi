@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "K-Kids API. Due to security concerns all calls to this API requires authentication. If you have access then you may use your KumpeApps username/password to authenticate. To gain access please use the contact developer link below.",
+    "description": "K-Kid API. Due to security concerns all calls to this API requires authentication. If you have access then you may use your KumpeApps username/password to authenticate. To gain access please use the contact developer link below.",
     "version": "4.0.0",
-    "title": "K-Kids API",
+    "title": "K-Kid API",
     "termsOfService": "https://app.termly.io/document/terms-of-use-for-website/27691a60-60fc-4eff-943f-ca52df024bfe",
     "contact": {
       "email": "helpdesk@kumpeapps.com"
@@ -1203,6 +1203,129 @@
           }
         ]
       }
+    },
+    "/apns": {
+      "post": {
+        "tags": [
+          "apns"
+        ],
+        "summary": "subscribes/unsubscribes/registers for apns push notifications",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "kidUserId",
+            "description": "userID of the kid",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "tool",
+            "description": "tool you wish to talk to (register/subscribe/unsubscribe/send)",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "token",
+            "description": "device APNS token (required for register and send)",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "devicename",
+            "description": "Name of device to associate to token (required for register)",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "title",
+            "description": "title of APNS message (required for send)",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "body",
+            "description": "APNS message body (required for send)",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "badge",
+            "description": "Number for badge icon (optional for send)",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "sound",
+            "description": "Name of sound file to play for send notification (optional for send)",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "action",
+            "description": "Action field for APNS message (optional for send)",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "section",
+            "description": "Notification section name (Chores/Chores-New/Chores-Reminders/Allowance/Allowance-New (required for send/subscribe/unsubscribe))",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "202": {
+            "description": "Accepted- Access Granted but data flow did not complete due to an unknown error."
+          },
+          "206": {
+            "description": "No Data Returned",
+            "schema": {
+              "$ref": "#/definitions/nodata"
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          },
+          "401": {
+            "description": "Unauthorized- API credentials not supplied. Ensure you have passed proper Username and Password parameters"
+          },
+          "403": {
+            "description": "Forbidden- User access is denied. API user either does not have access or has been banned/locked."
+          },
+          "405": {
+            "description": "Method Not Allowed- API user does not have access to use this method",
+            "schema": {
+              "$ref": "#/definitions/405"
+            }
+          },
+          "412": {
+            "description": "API Access Denied! Your API key is invalid, expired, or not supplied!",
+            "schema": {
+              "$ref": "#/definitions/412"
+            }
+          }
+        },
+        "security": [
+          {
+            "apiUsername": [],
+            "apiPassword": [],
+            "apiKey": []
+          }
+        ]
+      }
     }
   },
   "definitions": {
@@ -1468,6 +1591,30 @@
         "emoji": {
           "type": "string",
           "example": "🤗"
+        },
+        "tmdbKey": {
+          "type": "string",
+          "example": "9a87huiufe94r8"
+        },
+        "pushChores": {
+          "type": "boolean",
+          "example": true
+        },
+        "pushChoresNew": {
+          "type": "boolean",
+          "example": true
+        },
+        "pushChoresReminders": {
+          "type": "boolean",
+          "example": true
+        },
+        "pushAllowance": {
+          "type": "boolean",
+          "example": true
+        },
+        "pushAllowanceNew": {
+          "type": "boolean",
+          "example": true
         }
       }
     },
