@@ -1,4 +1,6 @@
 <?php
+include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
+$appName = 'com.kumpeapps.ios.KKid';
 
 if($allowPut){
 	// Set Status to 202 (Accepted)
@@ -64,6 +66,9 @@ curl_exec($ch);
 
 //close connection
 curl_close($ch);
+subscribe_apns($appName,$kidUserID,$masterID,'Chores');
+subscribe_apns($appName,$kidUserID,$masterID,'Chores-New');
+subscribe_apns($appName,$kidUserID,$masterID,'Chores-Reminders');
 }
 
 if(isset($_REQUEST['enableAllowance']) && $_REQUEST['enableAllowance'] == 'true'){
@@ -89,6 +94,8 @@ curl_exec($ch);
 
 //close connection
 curl_close($ch);
+subscribe_apns($appName,$kidUserID,$masterID,'Allowance');
+subscribe_apns($appName,$kidUserID,$masterID,'Allowance-New');
 }
 
 if(isset($_REQUEST['enableTmdb']) && $_REQUEST['enableTmdb'] == 'true'){
@@ -218,7 +225,11 @@ $get_data_query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 		
 		}
 
-}}
+}
+unsubscribe_apns($appName,$kidUserID,$masterID,'Chores');
+unsubscribe_apns($appName,$kidUserID,$masterID,'Chores-New');
+unsubscribe_apns($appName,$kidUserID,$masterID,'Chores-Reminders');
+}
 
 
 if(isset($_REQUEST['enableAllowance']) && $_REQUEST['enableAllowance'] == 'false'){
@@ -244,7 +255,10 @@ $get_data_query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 		
 		}
 
-}}
+}
+unsubscribe_apns($appName,$kidUserID,$masterID,'Allowance');
+unsubscribe_apns($appName,$kidUserID,$masterID,'Allowance-New');
+}
 
 
 if(isset($_REQUEST['enableTmdb']) && $_REQUEST['enableTmdb'] == 'false'){

@@ -1,4 +1,6 @@
 <?php
+include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
+$appName = 'com.kumpeapps.ios.KKid';
 
 if($allowPost){
 	// Set Status to 202 (Accepted)
@@ -63,6 +65,8 @@ curl_exec($ch);
 
 //close connection
 curl_close($ch);
+subscribe_apns($appName,$response1[0]["user_id"],$masterID,'Main');
+subscribe_apns($appName,$response1[0]["user_id"],$masterID,'Chores');
 
 //Add Allowance Access
 $ch = curl_init();
@@ -86,7 +90,7 @@ curl_exec($ch);
 
 //close connection
 curl_close($ch);
-
+subscribe_apns($appName,$response1[0]["user_id"],$masterID,'Allowance');
 
 	if(isset($response1['error']) && $response1['error']){
 		$json = array("status" => 0, "error" => "Create user unsuccessful! Username or Email address already exist or do not match requirements.");
