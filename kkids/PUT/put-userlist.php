@@ -345,7 +345,7 @@ $get_data_query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 	if(isset($response1['error']) && $response1['error']){
 		$json = array("status" => 0, "error" => "Update user unsuccessful!");
 		//Set Status Code to 409 (Conflict)
-		$statusCode = 200;
+		$statusCode = 409;
 	}else{
 		$json = $response1;
 		$statusCode = 200;
