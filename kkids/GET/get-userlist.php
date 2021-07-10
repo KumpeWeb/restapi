@@ -76,7 +76,12 @@ if($allowGet){
     		enableObjectDetection,
     		WeeklyAllowance,
     		emoji,
-    		tmdbKey
+    		tmdbKey,
+    		pushChores,
+    		pushChoresNew,
+    		pushChoresReminders,
+    		pushAllowance,
+    		pushAllowanceNew
 		FROM
     		Apps_KKid.UserList
     	WHERE 1=1
@@ -115,7 +120,12 @@ if($allowGet){
 					'enableObjectDetection' =>	$boolOutput($enableObjectDetection),
 					'weeklyAllowance' => floatval($WeeklyAllowance),
 					'emoji' => $emoji,
-					'tmdbKey' => $tmdbKey);
+					'tmdbKey' => $tmdbKey,
+					'pushChores' =>	$boolOutput($pushChores),
+					'pushChoresNew' =>	$boolOutput($pushChoresNew),
+					'pushChoresReminders' =>	$boolOutput($pushChoresReminders),
+					'pushAllowance' =>	$boolOutput($pushAllowance),
+					'pushAllowanceNew' =>	$boolOutput($pushAllowanceNew));
 		}
 		
 		if(isset($_REQUEST['outputCase']) && $_REQUEST['outputCase'] == "snake"){
