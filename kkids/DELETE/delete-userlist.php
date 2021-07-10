@@ -1,4 +1,6 @@
 <?php
+include_once('/var/www/html/kumpeapps.com/api/apns/apns.php');
+$appName = 'com.kumpeapps.ios.KKid';
 
 if($allowDelete && $isSuperuser){
 	// Set Status to 202 (Accepted)
@@ -39,6 +41,12 @@ if($allowDelete && $isSuperuser){
 	if(isset($response1['_success']) && $response1['_success']){
 		$json = $response1;
 		$statusCode = 200;
+		unsubscribe_apns($appName,$kidUserID,$masterID,'Chores');
+		unsubscribe_apns($appName,$kidUserID,$masterID,'Chores-New');
+		unsubscribe_apns($appName,$kidUserID,$masterID,'Chores-Reminders');
+		unsubscribe_apns($appName,$kidUserID,$masterID,'Allowance');
+		unsubscribe_apns($appName,$kidUserID,$masterID,'Allowance-New');
+		unsubscribe_apns($appName,$kidUserID,$masterID,'Main');
 	}else{
 		$json = array("status" => 0, "error" => "Delete user unsuccessful. User may not exist.");
 		//Set Status Code to 410 (Gone)

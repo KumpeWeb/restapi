@@ -32,6 +32,10 @@ if($allowPost){
 		subscribe_apns($appName,$userID,$masterID,$Section);
 	}
 	
+	if($tool == 'unsubscribe'){
+		unsubscribe_apns($appName,$userID,$masterID,$Section);
+	}
+	
 	if($tool == 'send'){
 	
 		if($userID == '0'){

@@ -38,7 +38,7 @@ $conn2 = mysqli_connect($sqlHost, $sqlUser, $sqlPass);
 		$choreCount = $UserArray['choreCount'];
 		//work on this function
 		if(intval($choreCount) > 0){
-			kkidPushNotificationAsync($username,"Chores-Reminders","Chore Reminder","You have ".intval($choreCount)." chores left for today. Do not forget to complete and check off your chores today!!!",intval($choreCount),"defaultß",NULL);
+			kkidPushNotificationAsync($username,"Chores-Reminders","Chore Reminder","You have ".intval($choreCount)." chores left for today. Do not forget to complete and check off your chores today!!!",intval($choreCount),"default",NULL);
 		}
 	}
 
