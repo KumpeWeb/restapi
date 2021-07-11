@@ -258,6 +258,10 @@
             "in": "query",
             "name": "outputCase",
             "type": "string",
+            "enum": [
+              "",
+              "snake"
+            ],
             "description": "output as snake_case by supplying snake. camelCase is default"
           },
           {
@@ -624,7 +628,11 @@
             "in": "query",
             "name": "outputCase",
             "description": "enter snake to output as snake_case or leave blank for default camelCase",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "",
+              "snake"
+            ]
           },
           {
             "in": "query",
@@ -1225,8 +1233,14 @@
           {
             "in": "query",
             "name": "tool",
-            "description": "tool you wish to talk to (register/subscribe/unsubscribe/send)",
+            "description": "tool you wish to talk to",
             "type": "string",
+            "enum": [
+              "register",
+              "subscribe",
+              "unsubscribe",
+              "send"
+            ],
             "required": true
           },
           {
@@ -1276,8 +1290,15 @@
           {
             "in": "query",
             "name": "section",
-            "description": "Notification section name (Chores/Chores-New/Chores-Reminders/Allowance/Allowance-New (required for send/subscribe/unsubscribe))",
-            "type": "string"
+            "description": "Notification section name (required for send/subscribe/unsubscribe)",
+            "type": "string",
+            "enum": [
+              "Chores",
+              "Chores-New",
+              "Chores-Reminders",
+              "Allowance",
+              "Allowance-New"
+            ]
           }
         ],
         "responses": {
