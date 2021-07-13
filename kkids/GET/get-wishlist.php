@@ -56,8 +56,7 @@ if($allowGet){
     		Apps_KKid.UserList
     	WHERE 1=1
     		AND masterID = '$masterID' 
-    		AND homeID = '$homeID' 
-    		AND userID = '$kidUserId';";
+    		AND homeID = '$homeID'";
     		
 	$get_data_query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 		if(mysqli_num_rows($get_data_query)!=0){
