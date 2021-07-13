@@ -23,7 +23,8 @@ if($allowGet){
 		FROM
     		Apps_KKid.WishList
 		WHERE
-    		1 = 1 ";
+    		1 = 1
+    		AND masterID = $masterID ";
     		
     if(isset($_REQUEST['includeUserInfo']) && $_REQUEST['includeUserInfo'] == 1){
     	
@@ -106,7 +107,7 @@ if($allowGet){
 				'weeklyAllowance' => floatval($WeeklyAllowance),
 				'enableObjectDetection' => floatval($enableObjectDetection),
 				'emoji' => $emoji,
-				'chores' => $result);
+				'list' => $result);
 		}
 		
 		if(isset($_REQUEST['outputCase']) && $_REQUEST['outputCase'] == "snake"){
