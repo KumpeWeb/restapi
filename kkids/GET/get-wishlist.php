@@ -128,7 +128,7 @@ if($allowGet){
 				$result[] = array(
 			 		'id' => intval($idWishList),
 			 		'userID' => intval($idUsers),
-					'masterID' => intval($masterID)
+					'masterID' => intval($masterID),
 					'title' => $title,
 					'description' => $description,
 					'priority' => intval($priority));
