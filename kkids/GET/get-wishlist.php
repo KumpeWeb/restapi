@@ -131,7 +131,7 @@ if($allowGet){
 				extract($r);
 				$result[] = array(
 			 		'id' => intval($idWishList),
-			 		'userID' => intval($idUsers),
+			 		'userID' => intval($userID),
 					'masterID' => intval($masterID),
 					'title' => $title,
 					'description' => $description,
