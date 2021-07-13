@@ -137,7 +137,7 @@ if($allowGet){
 			
 				$result = $convertToCase->$snake($result);
 			}
-			$json = array("status" => 1, "wish" => $result);
+			$json = array("status" => 1, "list" => $result);
 			$statusCode = 200;
 		}else{
 			$json = array("status" => 0, "error" => "No Data Found!");
