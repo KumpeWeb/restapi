@@ -117,7 +117,7 @@ if($allowGet){
 		}
     }else{
     	
-    	$sql = $choreSQL.$kidUsername;
+    	$sql = $listSQL.$kidUsername;
     	
 		$get_data_query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 		if(mysqli_num_rows($get_data_query)!=0){
