@@ -1,12 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "KKid API. Due to security concerns all calls to this API requires authentication. If you have access then you may use your KumpeApps username/password to authenticate. To gain access please use the contact developer link below.",
+    "description": "KumpeApps API houses all new API functions used by KumpeApps. Note: Some APIs are public but many are restricted to developer use only. To request access to these APIs please email helpdesk+apiaccess@kumpeapps.com.",
     "version": "4.0.0",
-    "title": "KKid API",
+    "title": "KumpeApps API",
     "termsOfService": "https://app.termly.io/document/terms-of-use-for-website/27691a60-60fc-4eff-943f-ca52df024bfe",
     "contact": {
-      "email": "helpdesk@kumpeapps.com"
+      "email": "helpdesk+api@kumpeapps.com"
     },
     "license": {
       "name": "Apache 2.0",
@@ -15,31 +15,19 @@
   },
   "tags": [
     {
-      "name": "authentication",
-      "description": "Authenticate KKid users (required to get apiKey)"
-    },
-    {
-      "name": "users",
-      "description": "Returns User Info (Requires apiKey from /authentication)"
-    },
-    {
-      "name": "chores",
-      "description": "Chore Info (Requires apiKey from /authentication)"
-    },
-    {
-      "name": "allowance",
-      "description": "Allowance Info (Requires apiKey from /authentication)"
-    },
-    {
-      "name": "wishlist",
-      "description": "Wish List Info (Requires apiKey from /authentication)"
+      "name": "kkids",
+      "description": "KKid API",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://github.com/kumpeapps/KKid"
+      }
     }
   ],
   "paths": {
-    "/authentication": {
+    "/kkids/authentication": {
       "get": {
         "tags": [
-          "authentication"
+          "kkids"
         ],
         "summary": "authenticates KKid user and returns user parameters",
         "description": "By passing in the appropriate options, you can authenticate a user and return their parameters and recieve an apiKey.\n",
@@ -97,7 +85,7 @@
       },
       "put": {
         "tags": [
-          "authentication"
+          "kkids"
         ],
         "summary": "sets API Key to Expired (logout user)",
         "description": "By passing in the appropriate API Key you can set the key to expire immediately. This is used to logout a user from your application. PLEASE do this once you no longer require the API Key!\n",
@@ -133,7 +121,7 @@
       },
       "post": {
         "tags": [
-          "authentication"
+          "kkids"
         ],
         "summary": "adds new master user account",
         "description": "By passing in the appropriate variables this method creates a new user with master account access. (The use of this method is restricted to Superusers ONLY)\n",
@@ -199,10 +187,10 @@
         }
       }
     },
-    "/userlist": {
+    "/kkids/userlist": {
       "get": {
         "tags": [
-          "users"
+          "kkids"
         ],
         "summary": "returns list of users",
         "description": "By passing in the appropriate options, you can search for\nusers within the authenticated user's master account\n",
@@ -323,7 +311,7 @@
       },
       "post": {
         "tags": [
-          "users"
+          "kkids"
         ],
         "summary": "adds new child user",
         "description": "By passing in the appropriate variables this method creates a new user and assigns it to the master account of the authenticated user. By default this user will have chores and allowance access.\n",
@@ -403,7 +391,7 @@
       },
       "put": {
         "tags": [
-          "users"
+          "kkids"
         ],
         "summary": "updates user",
         "description": "By passing in the appropriate variables this method updates the user's profile\n",
@@ -526,7 +514,7 @@
       },
       "delete": {
         "tags": [
-          "users"
+          "kkids"
         ],
         "summary": "deletes user",
         "description": "By passing in the appropriate variables this method deletes the specified user. (This function is restricted to Superusers ONLY)\n",
@@ -574,10 +562,10 @@
         ]
       }
     },
-    "/chorelist": {
+    "/kkids/chorelist": {
       "get": {
         "tags": [
-          "chores"
+          "kkids"
         ],
         "summary": "returns list of chores for given user",
         "description": "By passing in the appropriate options, you can search for\nchores assigned to a given user within the authenticated user's master account\n",
@@ -699,7 +687,7 @@
       },
       "put": {
         "tags": [
-          "chores"
+          "kkids"
         ],
         "summary": "updates chore for given chore id",
         "description": "By passing in the appropriate options, you can update the fields of a specific core within the authenticated user's master account\n",
@@ -817,7 +805,7 @@
       },
       "post": {
         "tags": [
-          "chores"
+          "kkids"
         ],
         "summary": "adds chore for given user",
         "description": "By passing in the appropriate options, you can add a chore to given kid username under authenticated user's master account\n",
@@ -993,7 +981,7 @@
       },
       "delete": {
         "tags": [
-          "chores"
+          "kkids"
         ],
         "summary": "deletes chore for given chore id",
         "description": "By passing in the appropriate options, you can delete a chore for the given chore id under authenticated user's master account\n",
@@ -1059,10 +1047,10 @@
         ]
       }
     },
-    "/allowance": {
+    "/kkids/allowance": {
       "get": {
         "tags": [
-          "allowance"
+          "kkids"
         ],
         "summary": "returns allowance balance and allowance transactions",
         "description": "By passing in the appropriate options, you can view allowance balance and allowance transactions for a given user provided that they are within the masterID account of the authenticated user.\n",
@@ -1132,7 +1120,7 @@
       },
       "post": {
         "tags": [
-          "allowance"
+          "kkids"
         ],
         "summary": "adds new allowance transaction to kidUserID",
         "description": "By passing in the appropriate options, you can add an allowance transaction to a given user.\n",
@@ -1216,10 +1204,10 @@
         ]
       }
     },
-    "/apns": {
+    "/kkids/apns": {
       "post": {
         "tags": [
-          "apns"
+          "kkids"
         ],
         "summary": "subscribes/unsubscribes/registers for apns push notifications",
         "description": "",
@@ -1928,7 +1916,7 @@
     }
   },
   "host": "api.kumpeapps.com",
-  "basePath": "/kkids",
+  "basePath": "/",
   "schemes": [
     "https"
   ],
