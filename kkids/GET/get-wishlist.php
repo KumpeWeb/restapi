@@ -78,8 +78,8 @@ if($allowGet){
 				extract($r);
 				$result[] = array(
 			 		'id' => intval($idWishList),
-			 		'userID' => intval($userID),
-					'masterID' => intval($masterID),
+			 		'userId' => intval($userID),
+					'masterId' => intval($masterID),
 					'title' => $title,
 					'description' => $description,
 					'priority' => intval($priority),
@@ -131,8 +131,8 @@ if($allowGet){
 				extract($r);
 				$result[] = array(
 			 		'id' => intval($idWishList),
-			 		'userID' => intval($userID),
-					'masterID' => intval($masterID),
+			 		'userId' => intval($userID),
+					'masterId' => intval($masterID),
 					'title' => $title,
 					'description' => $description,
 					'priority' => intval($priority),
