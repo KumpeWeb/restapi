@@ -24,7 +24,8 @@ if($allowGet){
     		Apps_KKid.WishList
 		WHERE
     		1 = 1
-    		AND masterID = $masterID ";
+    		AND masterID = $masterID 
+    		$kidUserId";
     		
     if(isset($_REQUEST['includeUserInfo']) && $_REQUEST['includeUserInfo'] == 1){
     	
@@ -57,7 +58,8 @@ if($allowGet){
     		Apps_KKid.UserList
     	WHERE 1=1
     		AND masterID = '$masterID' 
-    		AND homeID = '$homeID'";
+    		AND homeID = '$homeID'
+    		$kidUserId";
     		
 	$get_data_query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 		if(mysqli_num_rows($get_data_query)!=0){
@@ -76,7 +78,7 @@ if($allowGet){
 				extract($r);
 				$result[] = array(
 			 		'id' => intval($idWishList),
-			 		'userID' => intval($idUsers),
+			 		'userID' => intval($userID),
 					'masterID' => intval($masterID),
 					'title' => $title,
 					'description' => $description,
