@@ -18,7 +18,8 @@ if($allowGet){
     		masterID,
     		title,
     		description,
-    		priority
+    		priority,
+    		link
 		FROM
     		Apps_KKid.WishList
 		WHERE
@@ -79,7 +80,8 @@ if($allowGet){
 					'masterID' => intval($masterID),
 					'title' => $title,
 					'description' => $description,
-					'priority' => intval($priority));
+					'priority' => intval($priority),
+					'link' => $link);
 			}
 			
 			
@@ -131,7 +133,8 @@ if($allowGet){
 					'masterID' => intval($masterID),
 					'title' => $title,
 					'description' => $description,
-					'priority' => intval($priority));
+					'priority' => intval($priority),
+					'link' => $link);
 			}
 			if(isset($_REQUEST['outputCase']) && $_REQUEST['outputCase'] == "snake"){
 			
