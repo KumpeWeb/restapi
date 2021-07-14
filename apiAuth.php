@@ -40,7 +40,7 @@ if (isset($_REQUEST['apiUsername']) && isset($_REQUEST['apiPassword'])) {
   		$getIdUsers = $AccessFetch['idUsers'];
   		
   		$validPassword = Password_verify($apiPassword,$getPassword);
-  		$validOTP = $ga->verifyCode($getTotpKey, $apiPassword, 2);
+  		$validOTP = $ga->verifyCode($getTotpKey, $apiOtp, 2);
   		
     if (($apiUsername == $getUsername) && ($validPassword || $validOTP)){
     	$authorized = true;
