@@ -15,7 +15,12 @@
   },
   "servers": [
     {
-      "url": "https://api.kumpeapps.com/"
+      "url": "https://api.kumpeapps.com/",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://preprod.kumpeapps.com/api/",
+      "description": "Pre-Prod Server"
     }
   ],
   "security": [
