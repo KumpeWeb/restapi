@@ -1,0 +1,2323 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "KumpeApps API (ALPHA- still in developement)",
+    "description": "KumpeApps API houses all new API functions used by KumpeApps. Note: Some APIs are public but many are restricted to developer use only. To request access to these APIs please email helpdesk+apiaccess@kumpeapps.com.",
+    "termsOfService": "https://app.termly.io/document/terms-of-use-for-website/27691a60-60fc-4eff-943f-ca52df024bfe",
+    "contact": {
+      "email": "helpdesk+api@kumpeapps.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "4.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.kumpeapps.com/"
+    }
+  ],
+  "security": [
+    {
+      "apiUsername": [],
+      "apiPassword": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "kkids",
+      "description": "KKid API",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://github.com/kumpeapps/KKid"
+      }
+    }
+  ],
+  "paths": {
+    "/kkids/authentication": {
+      "get": {
+        "tags": [
+          "kkids"
+        ],
+        "summary": "authenticates KKid user and returns user parameters",
+        "description": "By passing in the appropriate options, you can authenticate a user and return their parameters and recieve an apiKey.\n",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "Username or Email of user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "Password of user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authentication"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted- Access Granted but data flow did not complete due to an unknown error.",
+            "content": {}
+          },
+          "400": {
+            "description": "bad input parameter",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized- API credentials not supplied. Ensure you have passed proper Username and Password parameters",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden- User access is denied. API user either does not have access or has been banned/locked.",
+            "content": {}
+          },
+          "405": {
+            "description": "Method Not Allowed- API user does not have access to use this method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/405"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "API Access Denied! Your API key is invalid, expired, or not supplied!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/412"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "kkids"
+        ],
+        "summary": "sets API Key to Expired (logout user)",
+        "description": "By passing in the appropriate API Key you can set the key to expire immediately. This is used to logout a user from your application. PLEASE do this once you no longer require the API Key!\n",
+        "parameters": [
+          {
+            "name": "apiKey",
+            "in": "query",
+            "description": "API Key you wish to invalidate",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API Key invalidated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/invalidateApiKey"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted- Access Granted but data flow did not complete due to an unknown error.",
+            "content": {}
+          },
+          "405": {
+            "description": "Method Not Allowed- API user does not have access to use this method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/405"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "kkids"
+        ],
+        "summary": "adds new master user account",
+        "description": "By passing in the appropriate variables this method creates a new user with master account access. (The use of this method is restricted to Superusers ONLY)\n",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "username of user to create",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "password of user to create",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "email address of user to create",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "firstName",
+            "in": "query",
+            "description": "First Name of user to create",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lastName",
+            "in": "query",
+            "description": "Last Name of user to create",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/addUserResponse"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted- Access Granted but data flow did not complete due to an unknown error.",
+            "content": {}
+          },
+          "405": {
+            "description": "Method Not Allowed- API user does not have access to use this method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/405"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Create user unsuccessful! This is normally because the username or password already exists in the KumpeApps system.",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/kkids/userlist": {
+      "get": {
+        "tags": [
+          "kkids"
+        ],
+        "summary": "returns list of users",
+        "description": "By passing in the appropriate options, you can search for\nusers within the authenticated user's master account\n",
+        "parameters": [
+          {
+            "name": "isChild",
+            "in": "query",
+            "description": "Filter Search by isChild flag",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "description": "Filter Search by isActive flag",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "isAdmin",
+            "in": "query",
+            "description": "Filter Search by isAdmin flag",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "enableAllowance",
+            "in": "query",
+            "description": "Filter Search by enableAllowance flag",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "enableChores",
+            "in": "query",
+            "description": "Filter Search by enableChores flag",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "userID",
+            "in": "query",
+            "description": "userID of user to search",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "description": "Username of user to search",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "Email address of user to search",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "outputCase",
+            "in": "query",
+            "description": "output as snake_case by supplying snake. camelCase is default",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "",
+                "snake"
+              ]
+            }
+          },
+          {
+            "name": "boolAsInt",
+            "in": "query",
+            "description": "true returns booleans as int values instead of true/false",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userlist"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted- Access Granted but data flow did not complete due to an unknown error.",
+            "content": {}
+          },
+          "204": {
+            "description": "No Data Returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/nodata"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized- API credentials not supplied. Ensure you have passed proper Username and Password parameters",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden- User access is denied. API user either does not have access or has been banned/locked.",
+            "content": {}
+          },
+          "405": {
+            "description": "Method Not Allowed- API user does not have access to use this method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/405"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "API Access Denied! Your API key is invalid, expired, or not supplied!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/412"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiUsername": [],
+            "apiPassword": [],
+            "apiKey": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "kkids"
+        ],
+        "summary": "updates user",
+        "description": "By passing in the appropriate variables this method updates the user's profile\n",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "query",
+            "description": "userID of the user you wish to update",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "description": "username of user to create",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "password of user to create",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "email address of user to create",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "firstName",
+            "in": "query",
+            "description": "First Name of user to create",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lastName",
+            "in": "query",
+            "description": "Last Name of user to create",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "emoji",
+            "in": "query",
+            "description": "emoji character for user",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "enableChores",
+            "in": "query",
+            "description": "set status of chores module enabled",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "enableAllowance",
+            "in": "query",
+            "description": "set status of allowance module enabled",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "enableAdmin",
+            "in": "query",
+            "description": "set status of isAdmin",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "enableTmdb",
+            "in": "query",
+            "description": "set status of enableTmdb (movie and tv search)",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "enableObjectDetection",
+            "in": "query",
+            "description": "set status of enableObjectDetection",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/addUserResponse"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted- Access Granted but data flow did not complete due to an unknown error.",
+            "content": {}
+          },
+          "405": {
+            "description": "Method Not Allowed- API user does not have access to use this method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/405"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Update user unsuccessful. This could be due to invalid userID, new username already exists, new email already exists, or an unknown error.",
+            "content": {}
+          },
+          "412": {
+            "description": "API Access Denied! Your API key is invalid, expired, or not supplied!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/412"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiUsername": [],
+            "apiPassword": [],
+            "apiKey": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "kkids"
+        ],
+        "summary": "adds new child user",
+        "description": "By passing in the appropriate variables this method creates a new user and assigns it to the master account of the authenticated user. By default this user will have chores and allowance access.\n",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "username of user to create",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "password of user to create",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "email address of user to create",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "firstName",
+            "in": "query",
+            "description": "First Name of user to create",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lastName",
+            "in": "query",
+            "description": "Last Name of user to create",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/addUserResponse"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted- Access Granted but data flow did not complete due to an unknown error.",
+            "content": {}
+          },
+          "405": {
+            "description": "Method Not Allowed- API user does not have access to use this method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/405"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Create user unsuccessful! This is normally because the username or password already exists in the KumpeApps system.",
+            "content": {}
+          },
+          "412": {
+            "description": "API Access Denied! Your API key is invalid, expired, or not supplied!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/412"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiUsername": [],
+            "apiPassword": [],
+            "apiKey": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "kkids"
+        ],
+        "summary": "deletes user",
+        "description": "By passing in the appropriate variables this method deletes the specified user. (This function is restricted to Superusers ONLY)\n",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "query",
+            "description": "userID of the user you wish to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Deleted",
+            "content": {}
+          },
+          "202": {
+            "description": "Accepted- Access Granted but data flow did not complete due to an unknown error.",
+            "content": {}
+          },
+          "405": {
+            "description": "Method Not Allowed- API user does not have access to use this method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/405"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Create user unsuccessful! This is normally because the username or password already exists in the KumpeApps system.",
+            "content": {}
+          },
+          "412": {
+            "description": "API Access Denied! Your API key is invalid, expired, or not supplied!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/412"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiUsername": [],
+            "apiPassword": [],
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/kkids/chorelist": {
+      "get": {
+        "tags": [
+          "kkids"
+        ],
+        "summary": "returns list of chores for given user",
+        "description": "By passing in the appropriate options, you can search for\nchores assigned to a given user within the authenticated user's master account\n",
+        "parameters": [
+          {
+            "name": "kidUsername",
+            "in": "query",
+            "description": "Username of kid you wish to search",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "day",
+            "in": "query",
+            "description": "Day of week for chores (Weekly for weekly chores)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status of Chore to search",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "blockDash",
+            "in": "query",
+            "description": "Filter results by blockDash parameter",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "optional",
+            "in": "query",
+            "description": "Filter results by optional parameter",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "canSteal",
+            "in": "query",
+            "description": "Filter results by canSteal parameter",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "includeUserInfo",
+            "in": "query",
+            "description": "pass true to include userlist with chores under each user",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "outputCase",
+            "in": "query",
+            "description": "enter snake to output as snake_case or leave blank for default camelCase",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "",
+                "snake"
+              ]
+            }
+          },
+          {
+            "name": "boolAsInt",
+            "in": "query",
+            "description": "output bool values as integers",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "includeCalendar",
+            "in": "query",
+            "description": "include calendar notations (default is false)",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/chorelist"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted- Access Granted but data flow did not complete due to an unknown error.",
+            "content": {}
+          },
+          "206": {
+            "description": "No Data Found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/nodata"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized- API credentials not supplied. Ensure you have passed proper Username and Password parameters",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden- User access is denied. API user either does not have access or has been banned/locked.",
+            "content": {}
+          },
+          "405": {
+            "description": "Method Not Allowed- API user does not have access to use this method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/405"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "API Access Denied! Your API key is invalid, expired, or not supplied!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/412"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiUsername": [],
+            "apiPassword": [],
+            "apiKey": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "kkids"
+        ],
+        "summary": "updates chore for given chore id",
+        "description": "By passing in the appropriate options, you can update the fields of a specific core within the authenticated user's master account\n",
+        "parameters": [
+          {
+            "name": "idChoreList",
+            "in": "query",
+            "description": "id number of chore you wish to update",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "new status of chore",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "stolen",
+            "in": "query",
+            "description": "mark chore as stolen by sibling",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "stolenBy",
+            "in": "query",
+            "description": "username of sibling that stole the chore (required if stolen is true)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "nfcTag",
+            "in": "query",
+            "description": "text field of NFC tag that is required to be scanned to check off this chore (normally null)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "notes",
+            "in": "query",
+            "description": "notes field for chore",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "latitude",
+            "in": "query",
+            "description": "GPS latitude of where the chore was marked",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "description": "GPS longitude of where the chore was marked",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "altitude",
+            "in": "query",
+            "description": "GPS altitude of where the chore was marked",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "updatedByAutomation",
+            "in": "query",
+            "description": "true if updated via API by automation system",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted- Access Granted but data flow did not complete due to an unknown error.",
+            "content": {}
+          },
+          "206": {
+            "description": "No Data Found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/nodata"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized- API credentials not supplied. Ensure you have passed proper Username and Password parameters",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden- User access is denied. API user either does not have access or has been banned/locked.",
+            "content": {}
+          },
+          "405": {
+            "description": "Method Not Allowed- API user does not have access to use this method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/405"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "API Access Denied! Your API key is invalid, expired, or not supplied!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/412"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiUsername": [],
+            "apiPassword": [],
+            "apiKey": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "kkids"
+        ],
+        "summary": "adds chore for given user",
+        "description": "By passing in the appropriate options, you can add a chore to given kid username under authenticated user's master account\n",
+        "parameters": [
+          {
+            "name": "kidUsername",
+            "in": "query",
+            "description": "username of kid to assign the chore to.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "day",
+            "in": "query",
+            "description": "day of week (Monday, Tuesday....) for the chore. For weekly chores put Weekly or leave blank",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "nfcTag",
+            "in": "query",
+            "description": "text field of nfc tag required to check off chore",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status of chore (default is todo)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "choreName",
+            "in": "query",
+            "description": "name of chore",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "choreDescription",
+            "in": "query",
+            "description": "optional chore description",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "choreNumber",
+            "in": "query",
+            "description": "number priority of chore (default is 5)",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "blockDash",
+            "in": "query",
+            "description": "block dash option on this chore",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "oneTime",
+            "in": "query",
+            "description": "mark as one time chore (does not repeat each week)",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "extraAllowance",
+            "in": "query",
+            "description": "ammount of allowance added at end of week for completing this chore",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "optional",
+            "in": "query",
+            "description": "mark as optional chore",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "reassignable",
+            "in": "query",
+            "description": "mark as reassignable (default is true)",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "canSteal",
+            "in": "query",
+            "description": "mark as sibling can steal chore",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "date (yyyy-mm-dd) that you wish the chore to start showing up. (default is today)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "notes",
+            "in": "query",
+            "description": "notes added to chore (visable only on reports, kids do not see this note, this is mostly just for the developer)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requireObjectDetection",
+            "in": "query",
+            "description": "require use of camera to detect object detection tag order to check off chore",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "objectDetectionTag",
+            "in": "query",
+            "description": "tag for object detection to search for (required if requireObjectDetection is true)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "updatedByAutomation",
+            "in": "query",
+            "description": "true if chore updated via API from an Automation System",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "aiIcon",
+            "in": "query",
+            "description": "Notes if AI Icons should be used (n for no, y for yes, e for yes- error)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted- Access Granted but data flow did not complete due to an unknown error.",
+            "content": {}
+          },
+          "206": {
+            "description": "No Data Found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/nodata"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized- API credentials not supplied. Ensure you have passed proper Username and Password parameters",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden- User access is denied. API user either does not have access or has been banned/locked.",
+            "content": {}
+          },
+          "405": {
+            "description": "Method Not Allowed- API user does not have access to use this method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/405"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict- idChoreList parameter was not supplied or is blank",
+            "content": {}
+          },
+          "412": {
+            "description": "API Access Denied! Your API key is invalid, expired, or not supplied!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/412"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiUsername": [],
+            "apiPassword": [],
+            "apiKey": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "kkids"
+        ],
+        "summary": "deletes chore for given chore id",
+        "description": "By passing in the appropriate options, you can delete a chore for the given chore id under authenticated user's master account\n",
+        "parameters": [
+          {
+            "name": "idChoreList",
+            "in": "query",
+            "description": "id of the chore you wish to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deletion successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted- Access Granted but data flow did not complete due to an unknown error.",
+            "content": {}
+          },
+          "206": {
+            "description": "No Data Found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/nodata"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized- API credentials not supplied. Ensure you have passed proper Username and Password parameters",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden- User access is denied. API user either does not have access or has been banned/locked.",
+            "content": {}
+          },
+          "405": {
+            "description": "Method Not Allowed- API user does not have access to use this method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/405"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict- idChoreList parameter was not supplied or is blank",
+            "content": {}
+          },
+          "412": {
+            "description": "API Access Denied! Your API key is invalid, expired, or not supplied!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/412"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiUsername": [],
+            "apiPassword": [],
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/kkids/allowance": {
+      "get": {
+        "tags": [
+          "kkids"
+        ],
+        "summary": "returns allowance balance and allowance transactions",
+        "description": "By passing in the appropriate options, you can view allowance balance and allowance transactions for a given user provided that they are within the masterID account of the authenticated user.\n",
+        "parameters": [
+          {
+            "name": "kidUserId",
+            "in": "query",
+            "description": "userID of the kid",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "transactionDays",
+            "in": "query",
+            "description": "number of days you wish to search allowance transactions (default is 90 days)",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/allowance"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted- Access Granted but data flow did not complete due to an unknown error.",
+            "content": {}
+          },
+          "206": {
+            "description": "No Data Returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/nodata"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized- API credentials not supplied. Ensure you have passed proper Username and Password parameters",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden- User access is denied. API user either does not have access or has been banned/locked.",
+            "content": {}
+          },
+          "405": {
+            "description": "Method Not Allowed- API user does not have access to use this method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/405"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "API Access Denied! Your API key is invalid, expired, or not supplied!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/412"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiUsername": [],
+            "apiPassword": [],
+            "apiKey": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "kkids"
+        ],
+        "summary": "adds new allowance transaction to kidUserID",
+        "description": "By passing in the appropriate options, you can add an allowance transaction to a given user.\n",
+        "parameters": [
+          {
+            "name": "kidUserId",
+            "in": "query",
+            "description": "userID of the kid",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "description": "amount you wish to Add/Subtract (subtract value should be a negative value)",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "description": "Description (reason) of allowance transaction",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionType",
+            "in": "query",
+            "description": "Transaction Type (Add/Subtract)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted- Access Granted but data flow did not complete due to an unknown error.",
+            "content": {}
+          },
+          "206": {
+            "description": "No Data Returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/nodata"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized- API credentials not supplied. Ensure you have passed proper Username and Password parameters",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden- User access is denied. API user either does not have access or has been banned/locked.",
+            "content": {}
+          },
+          "405": {
+            "description": "Method Not Allowed- API user does not have access to use this method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/405"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "API Access Denied! Your API key is invalid, expired, or not supplied!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/412"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiUsername": [],
+            "apiPassword": [],
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/kkids/apns": {
+      "post": {
+        "tags": [
+          "kkids"
+        ],
+        "summary": "subscribes/unsubscribes/registers for apns push notifications",
+        "parameters": [
+          {
+            "name": "kidUserId",
+            "in": "query",
+            "description": "userID of the kid",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "tool",
+            "in": "query",
+            "description": "tool you wish to talk to",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "register",
+                "subscribe",
+                "unsubscribe",
+                "send"
+              ]
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "device APNS token (required for register and send)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "devicename",
+            "in": "query",
+            "description": "Name of device to associate to token (required for register)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "description": "title of APNS message (required for send)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "body",
+            "in": "query",
+            "description": "APNS message body (required for send)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "badge",
+            "in": "query",
+            "description": "Number for badge icon (optional for send)",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sound",
+            "in": "query",
+            "description": "Name of sound file to play for send notification (optional for send)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "action",
+            "in": "query",
+            "description": "Action field for APNS message (optional for send)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "section",
+            "in": "query",
+            "description": "Notification section name (required for send/subscribe/unsubscribe)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Chores",
+                "Chores-New",
+                "Chores-Reminders",
+                "Allowance",
+                "Allowance-New"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted- Access Granted but data flow did not complete due to an unknown error.",
+            "content": {}
+          },
+          "206": {
+            "description": "No Data Returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/nodata"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized- API credentials not supplied. Ensure you have passed proper Username and Password parameters",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden- User access is denied. API user either does not have access or has been banned/locked.",
+            "content": {}
+          },
+          "405": {
+            "description": "Method Not Allowed- API user does not have access to use this method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/405"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "API Access Denied! Your API key is invalid, expired, or not supplied!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/412"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiUsername": [],
+            "apiPassword": [],
+            "apiKey": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "405": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 0
+          },
+          "error": {
+            "type": "string",
+            "example": "API Access Denied! Your API account does not have access to this Verb Method!"
+          }
+        }
+      },
+      "412": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 0
+          },
+          "error": {
+            "type": "string",
+            "example": "API Access Denied! Your API key is invalid or has expired!"
+          }
+        }
+      },
+      "allowance": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 1
+          },
+          "id": {
+            "type": "integer",
+            "example": 24
+          },
+          "balance": {
+            "type": "integer"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "example": "2020-08-26T19:48:30.000Z"
+          },
+          "allowanceTransaction": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "transactionId": {
+                  "type": "integer",
+                  "example": 85
+                },
+                "userId": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "transactionType": {
+                  "type": "string",
+                  "example": "Add"
+                },
+                "date": {
+                  "type": "string",
+                  "example": "2020-08-23T00:20:08.000Z"
+                },
+                "transactionDescription": {
+                  "type": "string",
+                  "example": "Weekly Allowance for Chores"
+                },
+                "amount": {
+                  "type": "integer",
+                  "example": 10
+                }
+              }
+            }
+          }
+        }
+      },
+      "success": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 1
+          },
+          "message": {
+            "type": "string",
+            "example": "success"
+          }
+        }
+      },
+      "userlist": {
+        "required": [
+          "status",
+          "user"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 1
+          },
+          "user": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/user"
+            }
+          }
+        }
+      },
+      "nodata": {
+        "required": [
+          "error",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 0
+          },
+          "error": {
+            "type": "string",
+            "example": "No Data Found"
+          }
+        }
+      },
+      "chorelist": {
+        "required": [
+          "chore",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 1
+          },
+          "chore": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/chore"
+            }
+          }
+        }
+      },
+      "authentication": {
+        "required": [
+          "apiKey",
+          "status",
+          "user"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 1
+          },
+          "apiKey": {
+            "type": "string",
+            "example": "67utyuvb7i6ugy9p843erwt3g"
+          },
+          "user": {
+            "$ref": "#/components/schemas/user"
+          }
+        }
+      },
+      "user": {
+        "required": [
+          "homeId",
+          "masterId",
+          "userId"
+        ],
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "example": 10
+          },
+          "masterId": {
+            "type": "integer",
+            "example": 1
+          },
+          "homeId": {
+            "type": "integer",
+            "example": 1
+          },
+          "username": {
+            "type": "string",
+            "example": "janedoe"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Jane"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "jane@doe.com"
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true
+          },
+          "isAdmin": {
+            "type": "boolean",
+            "example": false
+          },
+          "enableAllowance": {
+            "type": "boolean",
+            "example": true
+          },
+          "isBanned": {
+            "type": "boolean",
+            "example": false
+          },
+          "isChild": {
+            "type": "boolean",
+            "example": true
+          },
+          "enableChores": {
+            "type": "boolean",
+            "example": true
+          },
+          "isDisabled": {
+            "type": "boolean",
+            "example": false
+          },
+          "isLocked": {
+            "type": "boolean",
+            "example": false
+          },
+          "isMaster": {
+            "type": "boolean",
+            "example": false
+          },
+          "enableBehaviorChart": {
+            "type": "boolean",
+            "example": false
+          },
+          "enableNoAds": {
+            "type": "boolean",
+            "example": false
+          },
+          "enableTmdb": {
+            "type": "boolean",
+            "example": true
+          },
+          "enableObjectDetection": {
+            "type": "boolean",
+            "example": false
+          },
+          "weeklyAllowance": {
+            "type": "integer",
+            "example": 5
+          },
+          "emoji": {
+            "type": "string",
+            "example": "🤗"
+          },
+          "tmdbKey": {
+            "type": "string",
+            "example": "9a87huiufe94r8"
+          },
+          "pushChores": {
+            "type": "boolean",
+            "example": true
+          },
+          "pushChoresNew": {
+            "type": "boolean",
+            "example": true
+          },
+          "pushChoresReminders": {
+            "type": "boolean",
+            "example": true
+          },
+          "pushAllowance": {
+            "type": "boolean",
+            "example": true
+          },
+          "pushAllowanceNew": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "chore": {
+        "required": [
+          "idChoreList",
+          "kid"
+        ],
+        "type": "object",
+        "properties": {
+          "idChoreList": {
+            "type": "integer",
+            "example": 1
+          },
+          "kid": {
+            "type": "string",
+            "example": "jane"
+          },
+          "day": {
+            "type": "string",
+            "example": "Monday"
+          },
+          "choreName": {
+            "type": "string",
+            "example": "Wash Dishes"
+          },
+          "choreDescription": {
+            "type": "string",
+            "example": "Wash dishes and clean off counter"
+          },
+          "choreNumber": {
+            "type": "integer",
+            "example": 1
+          },
+          "nfcTag": {
+            "type": "string",
+            "example": "kkids//Chores?washdishestag"
+          },
+          "status": {
+            "type": "string",
+            "example": "todo"
+          },
+          "blockDash": {
+            "type": "boolean",
+            "example": false
+          },
+          "oneTime": {
+            "type": "boolean",
+            "example": false
+          },
+          "extraAllowance": {
+            "type": "integer",
+            "example": 5
+          },
+          "stolen": {
+            "type": "boolean",
+            "example": false
+          },
+          "stolenBy": {
+            "type": "string",
+            "example": null
+          },
+          "optional": {
+            "type": "boolean",
+            "example": false
+          },
+          "reassignable": {
+            "type": "boolean",
+            "example": true
+          },
+          "reassigned": {
+            "type": "boolean",
+            "example": false
+          },
+          "updated": {
+            "type": "string",
+            "example": "2020-08-28T00:00:00.000Z"
+          },
+          "updatedBy": {
+            "type": "string",
+            "example": "janedoe"
+          },
+          "startDate": {
+            "type": "string",
+            "example": "2020-08-23T00:00:00.000Z"
+          },
+          "notes": {
+            "type": "string",
+            "example": null
+          },
+          "latitude": {
+            "type": "integer"
+          },
+          "longitude": {
+            "type": "integer"
+          },
+          "altitude": {
+            "type": "integer"
+          },
+          "isCalendar": {
+            "type": "boolean",
+            "example": false
+          },
+          "requireObjectDetection": {
+            "type": "string",
+            "example": "bed"
+          },
+          "aiIcon": {
+            "type": "string",
+            "example": "n"
+          }
+        }
+      },
+      "addUserResponse": {
+        "required": [
+          "user_id"
+        ],
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "login": {
+            "type": "string",
+            "example": "janedoe"
+          },
+          "pass": {
+            "type": "string",
+            "example": null
+          },
+          "remember_key": {
+            "type": "string",
+            "example": null
+          },
+          "pass_dattm": {
+            "type": "string",
+            "example": "2020-09-27T14:22:24.000Z"
+          },
+          "email": {
+            "type": "string",
+            "example": "jane@doe.com"
+          },
+          "name_f": {
+            "type": "string",
+            "example": "Jane"
+          },
+          "name_l": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "street": {
+            "type": "string",
+            "example": null
+          },
+          "street2": {
+            "type": "string",
+            "example": null
+          },
+          "city": {
+            "type": "string",
+            "example": null
+          },
+          "state": {
+            "type": "string",
+            "example": null
+          },
+          "zip": {
+            "type": "string",
+            "example": null
+          },
+          "country": {
+            "type": "string",
+            "example": null
+          },
+          "phone": {
+            "type": "string",
+            "example": null
+          },
+          "added": {
+            "type": "string",
+            "example": "2020-09-27T14:22:24.000Z"
+          },
+          "remote_addr": {
+            "type": "string",
+            "example": "104.237.5.109"
+          },
+          "user_agent": {
+            "type": "string",
+            "example": null
+          },
+          "saved_form_id": {
+            "type": "string",
+            "example": null
+          },
+          "status": {
+            "type": "string",
+            "example": "0"
+          },
+          "unsubscribed": {
+            "type": "string",
+            "example": "0"
+          },
+          "lang": {
+            "type": "string",
+            "example": null
+          },
+          "i_agree": {
+            "type": "string",
+            "example": "0"
+          },
+          "is_locked": {
+            "type": "string",
+            "example": "0"
+          },
+          "disable_lock_until": {
+            "type": "string",
+            "example": null
+          },
+          "reseller_id": {
+            "type": "string",
+            "example": null
+          },
+          "comment": {
+            "type": "string",
+            "example": "Added Via KKids API"
+          },
+          "tax_id": {
+            "type": "string",
+            "example": null
+          },
+          "last_login": {
+            "type": "string",
+            "example": null
+          },
+          "aff_id": {
+            "type": "string",
+            "example": null
+          },
+          "aff_added": {
+            "type": "string",
+            "example": null
+          },
+          "is_affiliate": {
+            "type": "string",
+            "example": null
+          },
+          "aff_payout_type": {
+            "type": "string",
+            "example": null
+          },
+          "plain_password": {
+            "type": "string",
+            "example": null
+          },
+          "pin": {
+            "type": "string",
+            "example": "0"
+          },
+          "require_consent": {
+            "type": "string",
+            "example": null
+          },
+          "subusers_parent_id": {
+            "type": "string",
+            "example": "0"
+          },
+          "avatar": {
+            "type": "string",
+            "example": null
+          }
+        }
+      },
+      "invalidateApiKey": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 1
+          },
+          "message": {
+            "type": "string",
+            "example": "API Key Set to Expire Immediately"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "apiUsername": {
+        "type": "apiKey",
+        "name": "apiUsername",
+        "in": "query"
+      },
+      "apiPassword": {
+        "type": "apiKey",
+        "name": "apiPassword",
+        "in": "query"
+      },
+      "apiKey": {
+        "type": "apiKey",
+        "name": "apiKey",
+        "in": "query"
+      }
+    }
+  }
+}
