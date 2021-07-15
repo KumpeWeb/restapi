@@ -13,7 +13,7 @@ include_once('/var/www/html/kumpeapps.com/api/sqlConfig.php');
 $apiUsername = isset($_REQUEST['apiUsername']) ? mysqli_real_escape_string($conn, $_REQUEST['apiUsername']) :  "";
 $apiPassword = isset($_REQUEST['apiPassword']) ? mysqli_real_escape_string($conn, $_REQUEST['apiPassword']) :  "";
 $apiOtp = isset($_REQUEST['apiOtp']) ? mysqli_real_escape_string($conn, $_REQUEST['apiOtp']) :  "";
-//$apiKey = isset($_SERVER['HTTP_AUTHKEY']) ? mysqli_real_escape_string($conn, $_SERVER['HTTP_AUTHKEY']]) :  "none";
+$apiKey = isset($_SERVER['HTTP_AUTHKEY']) ? mysqli_real_escape_string($conn, $_SERVER['HTTP_AUTHKEY']]) :  "none";
 
 if (isset($_REQUEST['apiUsername']) && isset($_REQUEST['apiPassword'])) {
 

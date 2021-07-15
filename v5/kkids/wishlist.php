@@ -1,9 +1,9 @@
 <?php
 
-include_once('/var/www/html/kumpeapps.com/api/kkids/accessPermissions.php');
-include_once('/var/www/html/kumpeapps.com/api/apiAuth.php');
+include_once('/var/www/html/kumpeapps.com/api/v5/kkids/accessPermissions.php');
+include_once('/var/www/html/kumpeapps.com/api/v5/apiAuth.php');
 
-include_once('/var/www/html/kumpeapps.com/api/kkids/apiKeyValidation.php');
+include_once('/var/www/html/kumpeapps.com/api/v5/kkids/apiKeyValidation.php');
 
 $filename = 'wishlist.php';
 
