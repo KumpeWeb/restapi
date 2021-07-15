@@ -20,7 +20,7 @@
     },
     {
       "url": "https://preprod.kumpeapps.com/api/",
-      "description": "Pre-Prod Server"
+      "description": "Pre-Prod Server (Beta APIs with LIVE data)"
     }
   ],
   "security": [
