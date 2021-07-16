@@ -10,39 +10,39 @@ $statusCode = 400;
 $authorized = false;
 
 include_once('/var/www/html/kumpeapps.com/api/sqlConfig.php');
-$apiUsername = isset($_REQUEST['apiUsername']) ? mysqli_real_escape_string($conn, $_REQUEST['apiUsername']) :  "";
-$apiPassword = isset($_REQUEST['apiPassword']) ? mysqli_real_escape_string($conn, $_REQUEST['apiPassword']) :  "";
-$apiOtp = isset($_REQUEST['apiOtp']) ? mysqli_real_escape_string($conn, $_REQUEST['apiOtp']) :  "";
-$apiKey = isset($_SERVER['HTTP_AUTHKEY']) ? mysqli_real_escape_string($conn, $_SERVER['HTTP_AUTHKEY']) :  "none";
 
-if (isset($_REQUEST['apiUsername']) && isset($_REQUEST['apiPassword'])) {
+if (!isset($_SERVER['HTTP_AUTHUSERNAME']) && isset($_REQUEST['keyinbody']) && $_REQUEST['keyinbody'] == 1) {
+	$json = file_get_contents('php://input');
+	$getjson = json_decode($json);
+	$bodyAppKey = $getjson->appKey;
+	$bodyAuthKey = $getjson->authKey;
+} else {
+	$bodyAppKey = "";
+	$bodyAuthKey = "none";
+}
+
+$appKey = isset($_SERVER['HTTP_APPKEY']) ? mysqli_real_escape_string($conn, $_SERVER['HTTP_APPKEY']) :  $bodyAppKey;
+$apiOtp = isset($_SERVER['HTTP_APIOTP']) ? mysqli_real_escape_string($conn, $_SERVER['HTTP_APIOTP']) :  "";
+$apiKey = isset($_SERVER['HTTP_AUTHKEY']) ? mysqli_real_escape_string($conn, $_SERVER['HTTP_AUTHKEY']) :  $bodyAuthKey;
+
+if (isset($_SERVER['HTTP_APPKEY'])) {
 
 	$AccessData = "
 		SELECT 
-    		idUsers,
-    		userID, 
-    		username, 
-    		password, 
-    		CASE WHEN masterID = 0 THEN userID ELSE masterID END AS masterID, 
-    		totpKey
+    		*
 		FROM
-    		Core_RESTAPI.Users
+    		Core_RESTAPI.vw_Users
 		WHERE 1=1
-			AND username = '$apiUsername';
+			AND appKey = '$appKey';
 	"; 
   		$AccessQuery = mysqli_query($conn, $AccessData) or die("Couldn't execute query. ". mysqli_error($conn)); 
   		$AccessFetch = mysqli_fetch_array($AccessQuery); 
-  		$getUsername = $AccessFetch['username'];
-  		$getPassword = $AccessFetch['password'];
-  		$getTotpKey = $AccessFetch['totpKey'];
   		$getMasterId = $AccessFetch['masterID'];
   		$getUserId = $AccessFetch['userID'];
-  		$getIdUsers = $AccessFetch['idUsers'];
+  		$getUsername = $AccessFetch['username'];
+  		$getAppKey = $AccessFetch['appKey'];
   		
-  		$validPassword = Password_verify($apiPassword,$getPassword);
-  		$validOTP = $ga->verifyCode($getTotpKey, $apiOtp, 2);
-  		
-    if (($apiUsername == $getUsername) && ($validPassword || $validOTP)){
+    if ($appKey == $getAppKey){
     	$authorized = true;
     	$accessPermissions = [];
     	//Set Access Permissions
@@ -50,10 +50,10 @@ if (isset($_REQUEST['apiUsername']) && isset($_REQUEST['apiPassword'])) {
             	SELECT 
     				groupName
 				FROM
-    				Core_RESTAPI.User_GroupName_Relationship
+    				Core_RESTAPI.vw_User_GroupName_Relationship
 				WHERE
     				1 = 1
-    				AND idUsers = $getIdUsers;";
+    				AND username = '$getUsername';";
 					
 							
 			// Check if there are results
@@ -86,7 +86,7 @@ if (isset($_REQUEST['apiUsername']) && isset($_REQUEST['apiPassword'])) {
     	// Set Status to 403 (Forbidden)
 		$statusCode = 403;
 		$authorized = false;
-		$json = array("status" => 0, "error" => "API Access Denied! Please provide valid API credentials!");
+		$json = array("status" => 0, "error" => "API Access Denied! Please provide valid API appKey!");
 		header('Content-type: application/json');
 		echo json_encode($json);
     }
@@ -94,7 +94,7 @@ if (isset($_REQUEST['apiUsername']) && isset($_REQUEST['apiPassword'])) {
 	// Set Status to 401 (Unauthorized)
 	$statusCode = 401;
 	$authorized = false;
-	$json = array("status" => 0, "error" => "API Access Denied! You must provide valid API credentials in the apiUsername and apiPassword parameters.");
+	$json = array("status" => 0, "error" => "API Access Denied! You must provide valid API appKey.");
 	header('Content-type: application/json');
 	echo json_encode($json);
 }
