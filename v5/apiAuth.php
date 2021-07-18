@@ -33,8 +33,7 @@ if (isset($_SERVER['HTTP_APPKEY']) || (isset($_REQUEST['keyinbody']) && $_REQUES
     		Core_RESTAPI.vw_Users
 		WHERE 1=1
 			AND appKey = '$appKey'
-			AND blocked = 0
-			AND expirationDate >= now();
+			AND blocked = 0;
 	"; 
   		$AccessQuery = mysqli_query($conn, $AccessData) or die("Couldn't execute query. ". mysqli_error($conn)); 
   		$AccessFetch = mysqli_fetch_array($AccessQuery); 
