@@ -22,10 +22,9 @@ if (!isset($_SERVER['HTTP_AUTHUSERNAME']) && isset($_REQUEST['keyinbody']) && $_
 }
 
 $appKey = isset($_SERVER['HTTP_APPKEY']) ? mysqli_real_escape_string($conn, $_SERVER['HTTP_APPKEY']) :  $bodyAppKey;
-$apiOtp = isset($_SERVER['HTTP_APIOTP']) ? mysqli_real_escape_string($conn, $_SERVER['HTTP_APIOTP']) :  "";
 $apiKey = isset($_SERVER['HTTP_AUTHKEY']) ? mysqli_real_escape_string($conn, $_SERVER['HTTP_AUTHKEY']) :  $bodyAuthKey;
 
-if (isset($_SERVER['HTTP_APPKEY'])) {
+if (isset($_SERVER['HTTP_APPKEY']) || (isset($_REQUEST['keyinbody']) && $_REQUEST['keyinbody'] == 1)) {
 
 	$AccessData = "
 		SELECT 
@@ -33,7 +32,9 @@ if (isset($_SERVER['HTTP_APPKEY'])) {
 		FROM
     		Core_RESTAPI.vw_Users
 		WHERE 1=1
-			AND appKey = '$appKey';
+			AND appKey = '$appKey'
+			AND blocked = 0
+			AND expirationDate >= now();
 	"; 
   		$AccessQuery = mysqli_query($conn, $AccessData) or die("Couldn't execute query. ". mysqli_error($conn)); 
   		$AccessFetch = mysqli_fetch_array($AccessQuery); 
@@ -41,6 +42,7 @@ if (isset($_SERVER['HTTP_APPKEY'])) {
   		$getUserId = $AccessFetch['userID'];
   		$getUsername = $AccessFetch['username'];
   		$getAppKey = $AccessFetch['appKey'];
+  		$getCompromised = $AccessFetch['compromised'];
   		
     if ($appKey == $getAppKey){
     	$authorized = true;
@@ -75,7 +77,14 @@ if (isset($_SERVER['HTTP_APPKEY'])) {
 			echo json_encode($json);
         }
         
-        
+        if($getCompromised == 1){
+        	// Set Status to 423(Locked)
+        	$statusCode = 423;
+        	$authorized = false;
+			$json = array("status" => 0, "error" => "This App Key has been compromised. Please revoke the key and request a new one.");
+			header('Content-type: application/json');
+			echo json_encode($json);
+        }
         
         if(in_array("superuser",$accessPermissions)){
         	$superuser = true;
