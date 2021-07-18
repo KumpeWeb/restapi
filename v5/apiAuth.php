@@ -78,7 +78,7 @@ if (isset($_SERVER['HTTP_APPKEY']) || (isset($_REQUEST['keyinbody']) && $_REQUES
         
         if($getCompromised == 1){
         	// Set Status to 423(Locked)
-        	$statusCode = 417;
+        	$statusCode = 423;
         	$authorized = false;
 			$json = array("status" => 0, "error" => "This App Key has been compromised. Please revoke the key and request a new one.");
 			header('Content-type: application/json');
