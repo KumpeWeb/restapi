@@ -84,7 +84,7 @@ if($allowGet){
 			}
 			$authenticatedUser = $result['username'];
 			$sql = "
-				INSERT INTO Core_RESTAPI.API_Keys__KKid SET apiKey='$apiKey', apiUser='$apiUsername', authenticatedUser='$authenticatedUser', authenticationDate=now();";
+				INSERT INTO Core_RESTAPI.Auth_Keys SET authKey='$apiKey', appKey='$appKey', authenticatedUser='$authenticatedUser', authenticationDate=now(), expirationDate=DATE_ADD(NOW(), INTERVAL 90 DAY), authorizedScope='kkid';";
 			mysqli_query($conn, $sql) or die(mysqli_error($conn));
 		}else{
 			$json = array("status" => 0, "error" => "Username/Password incorrect");

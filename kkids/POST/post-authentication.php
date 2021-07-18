@@ -71,7 +71,7 @@ curl_close($ch);
 		$statusCode = 409;
 	}else{
 		$json = $response1;
-		$statusCode = 200;
+		$statusCode = 201;
 	}
 }else{
 	//Set Status Code to 405 (Method Not Allowed)
