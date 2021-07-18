@@ -94,7 +94,7 @@ if (isset($_SERVER['HTTP_APPKEY']) || (isset($_REQUEST['keyinbody']) && $_REQUES
     	// Set Status to 403 (Forbidden)
 		$statusCode = 403;
 		$authorized = false;
-		$json = array("status" => 0, "error" => "API Access Denied! Please provide valid API appKey!");
+		$json = array("status" => 0, "error" => "403- API Access Denied! Please provide valid API appKey!");
 		header('Content-type: application/json');
 		echo json_encode($json);
     }
@@ -102,7 +102,7 @@ if (isset($_SERVER['HTTP_APPKEY']) || (isset($_REQUEST['keyinbody']) && $_REQUES
 	// Set Status to 401 (Unauthorized)
 	$statusCode = 401;
 	$authorized = false;
-	$json = array("status" => 0, "error" => "API Access Denied! You must provide valid API appKey.");
+	$json = array("status" => 0, "error" => "401- API Access Denied! You must provide valid API appKey.");
 	header('Content-type: application/json');
 	echo json_encode($json);
 }
