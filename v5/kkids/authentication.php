@@ -1,7 +1,7 @@
 <?php
 
-include_once('/var/www/html/kumpeapps.com/api/kkids/accessPermissions.php');
-include_once('/var/www/html/kumpeapps.com/api/apiAuth.php');
+include_once('/var/www/html/kumpeapps.com/api/v5/kkids/accessPermissions.php');
+include_once('/var/www/html/kumpeapps.com/api/v5/apiAuth.php');
 
 $filename = 'authentication.php';
 
