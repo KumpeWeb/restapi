@@ -68,7 +68,7 @@ if($statusCode >= 200 && $statusCode <= 299 && $authorized){
 	header('Content-type: application/json');
 	echo json_encode($json);
 }else if ($statusCode == 406){
-	  $json = array("status" => 0, "error" => "API Access Denied! Your API key is invalid or has expired!");
+	  $json = array("status" => 0, "error" => "406- API Access Denied! Your API key is invalid or has expired!");
 	header('Content-type: application/json');
 	echo json_encode($json);
 }else if($statusCode == 501 && $authorized){
